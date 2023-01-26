@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import InvalidInput from "../../components/alerts/InvalidInput";
 import NoUserFound from "../../components/alerts/NoUserFound";
 import { login } from "../../redux/auth/authSlice";
 import InvalidPasswordModal from "../../utils/InvalidPasswordModal";
@@ -14,6 +15,8 @@ const ForgotPassword = (props: Props) => {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
     const validateEmail = (email: string) =>
         email.match(
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -21,7 +24,9 @@ const ForgotPassword = (props: Props) => {
 
     const sendEmailHandler = async (e: any) => {
         e.preventDefault();
-        if (!validateEmail(email)) return console.log("invalid email");
+        if (!validateEmail(email)) {
+            return setErrorMessage("invalid email address");
+        }
         setLoading(true);
         try {
             const response = await axios.post(
@@ -30,13 +35,11 @@ const ForgotPassword = (props: Props) => {
                     email: email,
                 }
             );
-            console.log(response);
             if (response.status === 200) {
                 navigate("/forget/sent");
             }
             setLoading(false);
         } catch (err: any) {
-            console.log(err);
             setLoading(false);
             if (err?.response?.status === 404) {
                 setShow(true);
@@ -79,9 +82,16 @@ const ForgotPassword = (props: Props) => {
                                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                         value={email}
                                         placeholder="type your email address here"
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            setErrorMessage("");
+                                            setEmail(e.target.value);
+                                        }}
+                                        style={{
+                                            backgroundColor:
+                                                errorMessage.includes("email")
+                                                    ? "#FEF2F2"
+                                                    : "",
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -95,6 +105,8 @@ const ForgotPassword = (props: Props) => {
                                 </button>
                             </div>
                         </form>
+                        <br></br>
+                        <InvalidInput content={errorMessage} />
                     </div>
                 </div>
             </div>

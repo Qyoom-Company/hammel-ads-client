@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import InvalidInput from "../../components/alerts/InvalidInput";
 import { register, reset } from "../../redux/auth/authSlice";
+import { AppDispatch } from "../../redux/store";
 import InvalidPasswordModal from "../../utils/InvalidPasswordModal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import SuccessModel from "../../utils/SuccessModel";
@@ -10,7 +11,7 @@ import SuccessModel from "../../utils/SuccessModel";
 export default function RegisterPage() {
     const lg = "ar";
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state: any) => state.auth
     );
@@ -93,8 +94,7 @@ export default function RegisterPage() {
         if (userData.password !== passwordConfirm) {
             return setErrorMessage("passwords do not match!");
         }
-
-        // @ts-ignore
+        //@ts-ignore
         dispatch(register(userData));
     };
 

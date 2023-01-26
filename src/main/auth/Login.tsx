@@ -19,11 +19,6 @@ export default function LoginPage() {
     });
     const [showPasswordIncorrect, setShowPasswordIncorrect] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [formValidation, setFormValidation] = useState({
-        email: userData.email.match(
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        ),
-    });
 
     //// use effect
     useEffect(() => {

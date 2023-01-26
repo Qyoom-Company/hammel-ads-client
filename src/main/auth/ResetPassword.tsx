@@ -2,15 +2,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import InvalidInput from "../../components/alerts/InvalidInput";
 import { login } from "../../redux/auth/authSlice";
+import { AppDispatch } from "../../redux/store";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 type Props = {};
 
 const ResetPassword = (props: Props) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const [queryParameters] = useSearchParams();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [loading, setLoading] = useState(true);
 
@@ -20,7 +23,6 @@ const ResetPassword = (props: Props) => {
     });
 
     const token = queryParameters.get("token");
-    console.log(token, !token);
     if (!token) navigate("/notfound");
     useEffect(() => {
         axios
@@ -44,12 +46,16 @@ const ResetPassword = (props: Props) => {
     const newPasswordHandler = async (e: any) => {
         e.preventDefault();
         if (!validPassword.test(newPassword.password))
-            return console.log("not strong password");
+            return setErrorMessage(
+                "password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and is at least eight characters long. "
+            );
 
         if (newPassword.password !== newPassword.passwordConfirm) {
-            return console.log("password mismatch");
+            return setErrorMessage("passwords do not match!");
         }
         setLoading(true);
+        return;
+
         try {
             const response = await axios.post(
                 `http://localhost:3500/api/auth/newPassword`,
@@ -58,7 +64,6 @@ const ResetPassword = (props: Props) => {
                     newPassword: newPassword.password,
                 }
             );
-            //@ts-ignore
             dispatch(
                 //@ts-ignore
                 login({
@@ -92,7 +97,12 @@ const ResetPassword = (props: Props) => {
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                        <form className="space-y-6" action="#" method="POST">
+                        <form
+                            className="space-y-6"
+                            action="#"
+                            method="POST"
+                            onChange={() => setErrorMessage("")}
+                        >
                             <div>
                                 <label
                                     htmlFor="email"
@@ -109,12 +119,20 @@ const ResetPassword = (props: Props) => {
                                         required
                                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                         value={newPassword.password}
-                                        onChange={(e) =>
+                                        onChange={(e) => {
                                             setNewPassword({
                                                 ...newPassword,
                                                 password: e.target.value,
-                                            })
-                                        }
+                                            });
+                                        }}
+                                        style={{
+                                            backgroundColor:
+                                                errorMessage.includes(
+                                                    "password"
+                                                )
+                                                    ? "#FEF2F2"
+                                                    : "",
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -141,6 +159,14 @@ const ResetPassword = (props: Props) => {
                                                 passwordConfirm: e.target.value,
                                             })
                                         }
+                                        style={{
+                                            backgroundColor:
+                                                errorMessage.includes(
+                                                    "password"
+                                                )
+                                                    ? "#FEF2F2"
+                                                    : "",
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -171,6 +197,8 @@ const ResetPassword = (props: Props) => {
                                 </button>
                             </div>
                         </form>
+                        <br></br>
+                        <InvalidInput content={errorMessage} />
                     </div>
                 </div>
             </div>
