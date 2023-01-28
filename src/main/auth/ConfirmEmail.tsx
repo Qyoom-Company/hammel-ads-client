@@ -15,10 +15,8 @@ const ConfirmEmail = (props: Props) => {
     const [loading, setLoading] = useState(true);
 
     const token = queryParameters.get("token");
-    console.log(token, !token);
     if (!token) navigate("/notfound");
     useEffect(() => {
-        console.log("doneeeee");
         axios
             .get(`http://localhost:3500/api/auth/confirm/${token}`)
             .then((res) => {

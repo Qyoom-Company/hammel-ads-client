@@ -54,8 +54,6 @@ const ResetPassword = (props: Props) => {
             return setErrorMessage("passwords do not match!");
         }
         setLoading(true);
-        return;
-
         try {
             const response = await axios.post(
                 `http://localhost:3500/api/auth/newPassword`,

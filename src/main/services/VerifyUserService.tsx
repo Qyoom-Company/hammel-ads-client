@@ -16,20 +16,14 @@ export default async function getUserInfo(
             }
         );
 
-        console.log("resssss", response);
         if (response.status === 200) {
-            console.log(response.data.user);
             setLoading(false);
         }
+        console.log(response);
     } catch (err: any) {
-        if (err.response.status === 400) {
-            navigate("/login");
-            return console.log("invalid token");
-        }
-        if (err.response.status === 401) {
-            navigate("/dashboard/verifyemail");
-            return console.log("email not verified");
-        }
         console.log(err);
+        if (err.response.status === 400) return navigate("/login");
+        if (err.response.status === 401)
+            return navigate("/dashboard/verifyemail");
     }
 }

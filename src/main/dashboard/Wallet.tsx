@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import VerifyUser from "../services/VerifyUserService";
+import NavBar from "./shared/NavBar";
 
 type Props = {};
 
@@ -15,5 +16,24 @@ export default function Wallet({}: Props) {
         VerifyUser(token, navigate, setLoading);
     }, []);
 
-    return loading ? <LoadingSpinner /> : <div>Wallet</div>;
+    return (
+        <>
+            <NavBar index={3} />
+            {loading ? (
+                <div
+                    style={{
+                        width: "100%",
+                        height: "90vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <LoadingSpinner />
+                </div>
+            ) : (
+                <h1>wallet</h1>
+            )}
+        </>
+    );
 }
