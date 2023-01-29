@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import NavBar from "./shared/NavBar";
+import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import NavBar from "../../shared/NavBar";
 
-type AnalyticsProps = {
+type WalletProps = {
     user: any;
 };
 
-export default function Analytics({ user }: AnalyticsProps) {
+export default function Wallet({ user }: WalletProps) {
     const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <NavBar user={user} index={1} />
+            <NavBar user={user} index={3} />
             {loading ? (
                 <div
                     style={{
@@ -25,7 +25,7 @@ export default function Analytics({ user }: AnalyticsProps) {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <h1>analytics</h1>
+                <h1>wallet</h1>
             )}
         </>
     );

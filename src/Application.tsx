@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./main/auth/Login";
 import Register from "./main/auth/Register";
 import Home from "./main/Home";
-import Dashboard from "./main/dashboard/Dashboard";
-import Settings from "./main/dashboard/Settings";
-import Analytics from "./main/dashboard/Analytics";
-import Campaigns from "./main/dashboard/Campaigns";
-import Wallet from "./main/dashboard/Wallet";
+import Dashboard from "./main/dashboard/pages/dashboard/Dashboard";
+import Settings from "./main/dashboard/pages/settings/Settings";
+import Analytics from "./main/dashboard/pages/analytics/Analytics";
+import Campaigns from "./main/dashboard/pages/campaign/Campaigns";
+import Wallet from "./main/dashboard/pages/wallet/Wallet";
 import NotFoundPage from "./utils/NotFoundPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { Provider, useSelector } from "react-redux";
@@ -19,19 +19,17 @@ import EmailSent from "./main/auth/EmailSent";
 import VerifyEmailPage from "./main/auth/VerifyEmailPage";
 import ConfirmEmail from "./main/auth/ConfirmEmail";
 import axios from "axios";
+import CreateCampaignPage from "./main/dashboard/pages/campaign/CreateCampaignPage";
+import EditCampaignPage from "./main/dashboard/pages/campaign/EditCampaignPage";
 export interface IApplicationProps {}
 
 function MainRoutes() {
     const token = useSelector((state: any) => state.auth.token);
-    const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-        photoPath: null,
-    });
+    const [user, setUser] = useState(null);
 
     const navigate = useNavigate();
+
+    if (!token) navigate("/login");
     useEffect(() => {
         console.log("happened");
         axios
@@ -44,9 +42,10 @@ function MainRoutes() {
                 setUser(res.data.data.user);
             })
             .catch((err) => {
-                if (err.response.status === 400) return navigate("/login");
-                if (err.response.status === 401)
+                if (err?.response?.status === 400) return navigate("/login");
+                if (err?.response?.status === 401)
                     return navigate("/dashboard/verifyemail");
+                navigate("/login");
             });
     }, []);
     return (
@@ -56,7 +55,20 @@ function MainRoutes() {
                 element={<Dashboard user={user} setUser={setUser} />}
             />
             <Route path="/analytics" element={<Analytics user={user} />} />
-            <Route path="/campaigns" element={<Campaigns user={user} />} />
+            <Route
+                path="/campaigns/*"
+                element={
+                    <Routes>
+                        <Route path="/" element={<Campaigns user={user} />} />
+                        <Route
+                            path="/create"
+                            element={<CreateCampaignPage />}
+                        />
+                        <Route path="/:id" element={<EditCampaignPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                }
+            />
             <Route path="/wallet" element={<Wallet user={user} />} />
             <Route
                 path="/settings"

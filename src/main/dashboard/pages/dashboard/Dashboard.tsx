@@ -1,6 +1,6 @@
-import { useState } from "react";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import NavBar from "./shared/NavBar";
+import { useEffect, useState } from "react";
+import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import NavBar from "../../shared/NavBar";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 
 function classNames(...classes: any) {
@@ -19,6 +19,11 @@ function Dashboard({ user, setUser }: DashboardProps) {
         { name: "click rate per 1000 appearances", stat: "10%" },
         { name: "Wallet", stat: "1000$" },
     ];
+
+    useEffect(() => {
+        if (!user) setLoading(true);
+        else setLoading(false);
+    }, [user]);
 
     return (
         <>

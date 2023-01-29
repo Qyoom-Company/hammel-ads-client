@@ -8,9 +8,10 @@ import InvalidPasswordModal from "../../utils/InvalidPasswordModal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import SuccessModel from "../../utils/SuccessModel";
 
-export default function RegisterPage() {
-    const lg = "ar";
-
+interface RegisterPageProps {
+    lg?: string;
+}
+export default function RegisterPage({ lg }: RegisterPageProps) {
     const dispatch = useDispatch<AppDispatch>();
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state: any) => state.auth
@@ -125,11 +126,11 @@ export default function RegisterPage() {
                     <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                         {translation(
                             "قم بإنشاء حساب الآن",
-                            "Create Your account now!"
+                            "Create your account now!"
                         )}
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
-                        {translation("أو", "or")}{" "}
+                        {translation("أو", "Or")}{" "}
                         <Link
                             to="/login"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -196,7 +197,7 @@ export default function RegisterPage() {
                                     >
                                         {translation(
                                             "اسم العائلة",
-                                            "last name"
+                                            "Last Name"
                                         )}
                                     </label>
                                     <div className="mt-1">
@@ -233,7 +234,7 @@ export default function RegisterPage() {
                                     >
                                         {translation(
                                             "البريد الإلكتروني",
-                                            "email address"
+                                            "Email Address"
                                         )}
                                     </label>
                                     <div className="mt-1">
@@ -272,7 +273,7 @@ export default function RegisterPage() {
                                     >
                                         {translation(
                                             "رقم الهاتف",
-                                            "phone number"
+                                            "Phone Number"
                                         )}
                                     </label>
                                     <div className="mt-1">
@@ -310,10 +311,7 @@ export default function RegisterPage() {
                                         htmlFor="password"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        {translation(
-                                            "كلمه السر",
-                                            "confirm password"
-                                        )}
+                                        {translation("كلمه السر", "Password")}
                                     </label>
                                     <div className="mt-1">
                                         <input
@@ -353,7 +351,7 @@ export default function RegisterPage() {
                                     >
                                         {translation(
                                             "تأكيد كلمة المرور",
-                                            "Password"
+                                            "Confirm Password"
                                         )}
                                     </label>
                                     <div className="mt-1">

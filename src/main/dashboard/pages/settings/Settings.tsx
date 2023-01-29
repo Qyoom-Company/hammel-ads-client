@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import NavBar from "./shared/NavBar";
 import axios from "axios";
-import InvalidInput from "../../components/alerts/InvalidInput";
-import UpdateSuccess from "./components/UpdateSuccess";
+import NavBar from "../../shared/NavBar";
+import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import InvalidInput from "../../../../components/alerts/InvalidInput";
+import UpdateSuccess from "../../shared/UpdateSuccess";
 
 type SettingsProps = {
     user: any;
@@ -108,7 +108,7 @@ export default function Settings({ user, setUser }: SettingsProps) {
         // if (
         //     updateInfo.firstName === user.firstName &&
         //     updateInfo.lastName === user.lastName &&
-        //     // updateInfo.email === user.email &&
+        //     // updateInfo.email === user?.email &&
         //     updateInfo.phoneNumber === user.phoneNumber
         // ) {
         //     setSuccessContent("updated");
@@ -189,11 +189,11 @@ export default function Settings({ user, setUser }: SettingsProps) {
                                                             className="inline-block h-12 w-12 flex-shrink-0 overflow-hidden rounded-full"
                                                             aria-hidden="true"
                                                         >
-                                                            {user.photoPath ? (
+                                                            {user?.photoPath ? (
                                                                 <img
                                                                     className="h-full w-full rounded-full"
                                                                     src={
-                                                                        user.photoPath
+                                                                        user?.photoPath
                                                                     }
                                                                     alt=""
                                                                 />
@@ -238,10 +238,12 @@ export default function Settings({ user, setUser }: SettingsProps) {
                                                 </div>
 
                                                 <div className="relative hidden overflow-hidden rounded-full lg:block">
-                                                    {user.photoPath ? (
+                                                    {user?.photoPath ? (
                                                         <img
                                                             className="relative h-40 w-40 rounded-full"
-                                                            src={user.photoPath}
+                                                            src={
+                                                                user?.photoPath
+                                                            }
                                                             alt=""
                                                         />
                                                     ) : (
@@ -338,7 +340,7 @@ export default function Settings({ user, setUser }: SettingsProps) {
                                                     name="email"
                                                     id="email"
                                                     className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-                                                    value={user.email}
+                                                    value={user?.email}
                                                     disabled={true}
                                                     // onChange={(e: any) => {
                                                     //     setUpdateInfo({

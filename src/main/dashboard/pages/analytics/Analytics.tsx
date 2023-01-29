@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import NavBar from "./shared/NavBar";
+import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import NavBar from "../../shared/NavBar";
 
-type CampaignsProps = {
+type AnalyticsProps = {
     user: any;
 };
 
-export default function Campaigns({ user }: CampaignsProps) {
+export default function Analytics({ user }: AnalyticsProps) {
     const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <NavBar user={user} index={2} />
+            <NavBar user={user} index={1} />
             {loading ? (
                 <div
                     style={{
@@ -25,7 +25,7 @@ export default function Campaigns({ user }: CampaignsProps) {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <h1>My Campaigns</h1>
+                <h1>analytics</h1>
             )}
         </>
     );

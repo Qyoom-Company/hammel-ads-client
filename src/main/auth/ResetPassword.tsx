@@ -65,12 +65,16 @@ const ResetPassword = (props: Props) => {
             dispatch(
                 //@ts-ignore
                 login({
-                    email: response.data.data.user.email,
+                    email: response.data.data.user?.email,
                     password: newPassword.password,
                 })
             );
             navigate("/reset/changed");
-        } catch (err) {
+        } catch (err: any) {
+            if (err?.response?.status === 400) {
+                setLoading(false);
+                return setErrorMessage("Cannot use that password!");
+            }
             navigate("/notfound");
         }
     };

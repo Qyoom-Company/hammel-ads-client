@@ -12,10 +12,7 @@ const navigation = [
     { name: "Campaigns", href: "/dashboard/campaigns", current: false },
     { name: "Wallet", href: "/dashboard/wallet", current: false },
 ];
-const userNavigation = [
-    { name: "Settings", href: "#" },
-    { name: "Sign out", href: "#" },
-];
+const userNavigation = [{ name: "Settings" }, { name: "Sign out" }];
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
@@ -26,7 +23,6 @@ interface NavBarProps {
     index: number;
 }
 export default function NavBar({ user, index }: NavBarProps) {
-    console.log(user.photoPath);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -117,10 +113,12 @@ export default function NavBar({ user, index }: NavBarProps) {
                                                     <span className="sr-only">
                                                         Open user menu
                                                     </span>
-                                                    {user.photoPath ? (
+                                                    {user?.photoPath ? (
                                                         <img
                                                             className="h-10 w-10 rounded-full"
-                                                            src={user.photoPath}
+                                                            src={
+                                                                user?.photoPath
+                                                            }
                                                             alt=""
                                                         />
                                                     ) : (
@@ -233,16 +231,16 @@ export default function NavBar({ user, index }: NavBarProps) {
                                             <img
                                                 className="h-10 w-10 rounded-full"
                                                 crossOrigin="anonymous"
-                                                src={user.photoPath}
+                                                src={user?.photoPath}
                                                 alt=""
                                             />
                                         </div>
                                         <div className="ml-3">
                                             <div className="text-base font-medium text-gray-800">
-                                                {user.name}
+                                                {user?.name}
                                             </div>
                                             <div className="text-sm font-medium text-gray-500">
-                                                {user.email}
+                                                {user?.email}
                                             </div>
                                         </div>
                                         <button
