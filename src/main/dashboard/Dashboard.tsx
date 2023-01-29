@@ -1,44 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import VerifyUserService from "../services/VerifyUserService";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavBar from "./shared/NavBar";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
-
-const user = {
-    name: "Tom Cook",
-    email: "tom@example.com",
-    imageUrl:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-    { name: "Dashboard", href: "#", current: true },
-    { name: "Team", href: "#", current: false },
-    { name: "Projects", href: "#", current: false },
-    { name: "Calendar", href: "#", current: false },
-];
-const userNavigation = [
-    { name: "Your Profile", href: "#" },
-    { name: "Settings", href: "#" },
-    { name: "Sign out", href: "#" },
-];
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
 }
-
-function Dashboard() {
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const token = useSelector((state: any) => state.auth.token);
-
-    useEffect(() => {
-        console.log(VerifyUserService(token, navigate, setLoading));
-    }, []);
+interface DashboardProps {
+    user: any;
+    setUser: any;
+}
+function Dashboard({ user, setUser }: DashboardProps) {
+    const [loading, setLoading] = useState(false);
 
     const lastTwoWeeksStats = [
         { name: "ad appearance", stat: "71,897" },
@@ -49,7 +22,7 @@ function Dashboard() {
 
     return (
         <>
-            <NavBar index={0} />
+            <NavBar user={user} index={0} />
             {loading ? (
                 <div
                     style={{

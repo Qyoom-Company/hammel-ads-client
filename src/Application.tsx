@@ -1,16 +1,16 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./main/auth/Login";
 import Register from "./main/auth/Register";
 import Home from "./main/Home";
 import Dashboard from "./main/dashboard/Dashboard";
 import Settings from "./main/dashboard/Settings";
 import Analytics from "./main/dashboard/Analytics";
-import MyAds from "./main/dashboard/MyAds";
+import Campaigns from "./main/dashboard/Campaigns";
 import Wallet from "./main/dashboard/Wallet";
 import NotFoundPage from "./utils/NotFoundPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import ForgotPassword from "./main/auth/ForgotPassword";
 import ResetPassword from "./main/auth/ResetPassword";
@@ -18,16 +18,50 @@ import SuccessModel from "./utils/SuccessModel";
 import EmailSent from "./main/auth/EmailSent";
 import VerifyEmailPage from "./main/auth/VerifyEmailPage";
 import ConfirmEmail from "./main/auth/ConfirmEmail";
+import axios from "axios";
 export interface IApplicationProps {}
 
 function MainRoutes() {
+    const token = useSelector((state: any) => state.auth.token);
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        photoPath: null,
+    });
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log("happened");
+        axios
+            .get("http://localhost:3500/api/users/getuser", {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                setUser(res.data.data.user);
+            })
+            .catch((err) => {
+                if (err.response.status === 400) return navigate("/login");
+                if (err.response.status === 401)
+                    return navigate("/dashboard/verifyemail");
+            });
+    }, []);
     return (
         <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/myads" element={<MyAds />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route
+                path="/"
+                element={<Dashboard user={user} setUser={setUser} />}
+            />
+            <Route path="/analytics" element={<Analytics user={user} />} />
+            <Route path="/campaigns" element={<Campaigns user={user} />} />
+            <Route path="/wallet" element={<Wallet user={user} />} />
+            <Route
+                path="/settings"
+                element={<Settings user={user} setUser={setUser} />}
+            />
 
             <Route path="/verifyemail" element={<VerifyEmailPage />} />
             <Route path="*" element={<NotFoundPage />} />

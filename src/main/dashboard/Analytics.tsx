@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import VerifyUser from "../services/VerifyUserService";
 import NavBar from "./shared/NavBar";
 
-type Props = {};
+type AnalyticsProps = {
+    user: any;
+};
 
-export default function Analytics({}: Props) {
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const token = useSelector((state: any) => state.auth.token);
-
-    useEffect(() => {
-        VerifyUser(token, navigate, setLoading);
-    }, []);
+export default function Analytics({ user }: AnalyticsProps) {
+    const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <NavBar index={1} />
+            <NavBar user={user} index={1} />
             {loading ? (
                 <div
                     style={{

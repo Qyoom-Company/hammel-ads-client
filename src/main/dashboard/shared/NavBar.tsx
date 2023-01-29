@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import axios from "axios";
 const navigation = [
     { name: "Dashboard", href: "/dashboard", current: false },
     { name: "Analytics", href: "/dashboard/analytics", current: false },
-    { name: "My Ads", href: "/dashboard/myads", current: false },
+    { name: "Campaigns", href: "/dashboard/campaigns", current: false },
     { name: "Wallet", href: "/dashboard/wallet", current: false },
 ];
 const userNavigation = [
@@ -22,14 +22,10 @@ function classNames(...classes: any) {
 }
 
 interface NavBarProps {
+    user: any;
     index: number;
 }
-export default function NavBar({ index }: NavBarProps) {
-    const [user, setUser] = useState({
-        name: "",
-        email: "",
-        photoPath: "",
-    });
+export default function NavBar({ user, index }: NavBarProps) {
     console.log(user.photoPath);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,22 +35,6 @@ export default function NavBar({ index }: NavBarProps) {
     navigation.forEach((el) => (el.current = false));
     if (index < navigation.length && index >= 0)
         navigation[index].current = true;
-
-    useEffect(() => {
-        axios
-            .get("http://localhost:3500/api/users/getuser", {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res.data.data.user);
-                setUser(res.data.data.user);
-            })
-            .catch((err) => {
-                navigate("/login");
-            });
-    }, []);
 
     const logoutHandler = () => {
         //@ts-ignore

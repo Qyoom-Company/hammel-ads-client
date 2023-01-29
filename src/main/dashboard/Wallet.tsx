@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import VerifyUser from "../services/VerifyUserService";
 import NavBar from "./shared/NavBar";
 
-type Props = {};
+type WalletProps = {
+    user: any;
+};
 
-export default function Wallet({}: Props) {
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const token = useSelector((state: any) => state.auth.token);
-
-    useEffect(() => {
-        VerifyUser(token, navigate, setLoading);
-    }, []);
+export default function Wallet({ user }: WalletProps) {
+    const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <NavBar index={3} />
+            <NavBar user={user} index={3} />
             {loading ? (
                 <div
                     style={{
