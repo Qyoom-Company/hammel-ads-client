@@ -5,8 +5,6 @@ interface CampaignTableProps {
 }
 
 export default function CampaignsTable({ campaigns }: CampaignTableProps) {
-    campaigns = campaigns.reverse();
-
     return (
         <div className="mt-8 flex flex-col">
             <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -17,7 +17,8 @@ export default function Campaigns({}: CampaignsProps) {
     const getCampaigns = async () => {
         try {
             const response = await CampaignsAPI.getAllCampaigns(token);
-
+            const campaigns = response.data.data.reverse();
+            setCampaigns(campaigns);
             setCampaigns(response.data.data);
             setLoading(false);
         } catch (err: any) {

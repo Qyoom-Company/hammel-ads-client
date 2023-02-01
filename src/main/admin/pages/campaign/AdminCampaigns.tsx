@@ -17,8 +17,8 @@ export default function AdminCampaigns({}: CampaignsProps) {
     const getCampaigns = async () => {
         try {
             const response = await CampaignsAPI.getAllCampaigns(token);
-
-            setCampaigns(response.data.data);
+            const campaigns = response.data.data.reverse();
+            setCampaigns(campaigns);
             setLoading(false);
         } catch (err: any) {
             console.log(err);

@@ -57,7 +57,7 @@ function AdminEditCampaignPage({}: Props) {
         photoPath: "",
         link: "",
         status: "",
-        message: "",
+        adminMessage: "",
     });
     const [campaignInfo, setCampaignInfo] = useState({
         title: "",
@@ -67,7 +67,7 @@ function AdminEditCampaignPage({}: Props) {
         country: "",
         photoPath: "",
         link: "",
-        message: "",
+        adminMessage: "",
     });
 
     const [showSuccessUpdate, setShowSuccessUpdate] = useState(false);
@@ -104,6 +104,7 @@ function AdminEditCampaignPage({}: Props) {
             setCampaign(fetchedCampaign);
             setCampaignInfo({
                 ...fetchedCampaign,
+                adminMessage: fetchedCampaign.adminMessage,
                 startDate: formatFetchedDate(fetchedCampaign.startDate),
                 endDate: formatFetchedDate(fetchedCampaign.endDate),
             });
@@ -446,6 +447,7 @@ function AdminEditCampaignPage({}: Props) {
                         </div>
                     </div>
                     <div>
+                        <br />
                         <label
                             htmlFor="comment"
                             className="block text-sm font-medium text-gray-700"
@@ -458,11 +460,11 @@ function AdminEditCampaignPage({}: Props) {
                                 name="comment"
                                 id="comment"
                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                value={campaignInfo.message}
+                                value={campaignInfo.adminMessage}
                                 onChange={(e) =>
                                     setCampaignInfo({
                                         ...campaignInfo,
-                                        message: e.target.value,
+                                        adminMessage: e.target.value,
                                     })
                                 }
                             />

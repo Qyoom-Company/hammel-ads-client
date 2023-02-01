@@ -86,11 +86,26 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                 <div className="flex items-center">
                     <div className="h-10 w-10 flex-shrink-0">
-                        <img
+                        {/* <img
                             className="h-10 w-10 rounded-full"
                             src={user.photoPath}
                             alt=""
-                        />
+                        /> */}
+                        {user?.photoPath ? (
+                            <img
+                                className="h-10 w-10 rounded-full"
+                                src={user?.photoPath}
+                                alt=""
+                            />
+                        ) : (
+                            <svg
+                                className="h-10 w-10 rounded-full"
+                                fill="#6B7280"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        )}
                     </div>
                     <div className="ml-4">
                         <div className="font-medium text-gray-900">
