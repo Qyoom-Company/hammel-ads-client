@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CampaignsAPI from "../api";
 
 interface CampaignsTableRowProps {
     campaign: any;
@@ -46,6 +49,30 @@ function statusStyles(status: string): string {
 }
 
 export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
+    const token = useSelector((state: any) => state.auth.token);
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        photoPath: "",
+    });
+
+    const getUser = async () => {
+        try {
+            const res = await CampaignsAPI.getUser(token, campaign.userId);
+            console.log(res);
+            const data = res?.data.data;
+            setUser(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     return (
         <tr key={campaign.email}>
             {/* // title */}
@@ -53,6 +80,23 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
                 <div className="flex items-center">
                     <div className="font-medium text-gray-900">
                         {campaign.title}
+                    </div>
+                </div>
+            </td>
+            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                <div className="flex items-center">
+                    <div className="h-10 w-10 flex-shrink-0">
+                        <img
+                            className="h-10 w-10 rounded-full"
+                            src={user.photoPath}
+                            alt=""
+                        />
+                    </div>
+                    <div className="ml-4">
+                        <div className="font-medium text-gray-900">
+                            {user.firstName} {user.lastName}
+                        </div>
+                        <div className="text-gray-500">{user.email}</div>
                     </div>
                 </div>
             </td>

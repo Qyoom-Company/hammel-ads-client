@@ -9,7 +9,6 @@ interface Props {
 
 const ProtectedAdminRoute: React.FC<Props> = ({ children }) => {
     const token = useSelector((state: any) => state.auth.token);
-    const user = useSelector((state: any) => state.user);
 
     if (!token) {
         return <NotFoundPage />;

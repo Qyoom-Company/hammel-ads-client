@@ -40,6 +40,18 @@ const CampaignsAPI = {
         );
     },
 
+    getUser: function (token: string, userId: string) {
+        return axios.get(
+            `${mainRoute}/api/users/${userId}`,
+
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }
+        );
+    },
+
     uploadCampaignPhoto: function (campaignPhotoData: FormData, token: string) {
         return axios.post(
             "http://localhost:3500/api/campaigns/upload-campaign-photo",

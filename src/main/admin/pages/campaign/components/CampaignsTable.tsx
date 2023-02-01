@@ -5,6 +5,7 @@ interface CampaignTableProps {
 }
 
 export default function CampaignsTable({ campaigns }: CampaignTableProps) {
+    campaigns = campaigns.reverse();
     return (
         <div className="mt-8 flex flex-col">
             <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -18,6 +19,12 @@ export default function CampaignsTable({ campaigns }: CampaignTableProps) {
                                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6   "
                                     >
                                         Campaign Title
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6   "
+                                    >
+                                        User
                                     </th>
                                     <th
                                         scope="col"

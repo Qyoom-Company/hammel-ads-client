@@ -11,6 +11,7 @@ import CampaignsTable from "./components/CampaignsTable";
 import preview from "../../../../images/PhonePreviewImage.png";
 import PreviewComponent from "./PreviewComponent";
 import countryList from "./staticData/countryList";
+import StatusListSelect from "./components/StatusListSelect";
 type Props = {};
 
 function isValidHttpUrl(string: string) {
@@ -37,6 +38,8 @@ function formatFetchedDate(date: string) {
 function AdminEditCampaignPage({}: Props) {
     const campaignId = useParams().id;
 
+    const [selectedStatus, setSelectedStatus] = useState(null);
+
     const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -54,6 +57,7 @@ function AdminEditCampaignPage({}: Props) {
         photoPath: "",
         link: "",
         status: "",
+        message: "",
     });
     const [campaignInfo, setCampaignInfo] = useState({
         title: "",
@@ -63,6 +67,7 @@ function AdminEditCampaignPage({}: Props) {
         country: "",
         photoPath: "",
         link: "",
+        message: "",
     });
 
     const [showSuccessUpdate, setShowSuccessUpdate] = useState(false);
@@ -102,6 +107,7 @@ function AdminEditCampaignPage({}: Props) {
                 startDate: formatFetchedDate(fetchedCampaign.startDate),
                 endDate: formatFetchedDate(fetchedCampaign.endDate),
             });
+            setSelectedStatus(fetchedCampaign.status);
         } catch (err: any) {
             console.log(err);
             navigate("/notfound");
@@ -148,17 +154,6 @@ function AdminEditCampaignPage({}: Props) {
     };
 
     const saveHandler = async () => {
-        let status;
-        if (
-            campaign.photoPath !== campaignInfo.photoPath ||
-            campaign.link !== campaignInfo.link
-        ) {
-            status = "in review";
-        } else {
-            status = campaign.status;
-        }
-        status = "ready";
-
         if (!formIsValid()) return;
 
         try {
@@ -166,7 +161,7 @@ function AdminEditCampaignPage({}: Props) {
                 ...campaignInfo,
                 startDate: formatDate(campaignInfo.startDate),
                 endDate: formatDate(campaignInfo.endDate),
-                status,
+                status: selectedStatus,
             };
             console.log(data);
             const response = await CampaignsAPI.updateCampaign(
@@ -434,7 +429,43 @@ function AdminEditCampaignPage({}: Props) {
                                         />
                                     </div>
                                 </div>
+                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    <label
+                                        htmlFor="link"
+                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                    >
+                                        Status
+                                    </label>
+
+                                    <StatusListSelect
+                                        selected={selectedStatus || ""}
+                                        setSelected={setSelectedStatus}
+                                    />
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            htmlFor="comment"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Add a message for the user
+                        </label>
+                        <div className="mt-1">
+                            <textarea
+                                rows={4}
+                                name="comment"
+                                id="comment"
+                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                value={campaignInfo.message}
+                                onChange={(e) =>
+                                    setCampaignInfo({
+                                        ...campaignInfo,
+                                        message: e.target.value,
+                                    })
+                                }
+                            />
                         </div>
                     </div>
 
@@ -448,7 +479,7 @@ function AdminEditCampaignPage({}: Props) {
                                     saveHandler();
                                 }}
                             >
-                                Publish
+                                Save
                             </button>
                         </div>
                     </div>

@@ -11,6 +11,7 @@ import CampaignsTable from "./components/CampaignsTable";
 import preview from "../../../../images/PhonePreviewImage.png";
 import PreviewComponent from "./PreviewComponent";
 import countryList from "./staticData/countryList";
+import AdminMessageAlert from "./components/AdminMessageAlert";
 type Props = {};
 
 function isValidHttpUrl(string: string) {
@@ -34,7 +35,7 @@ function formatFetchedDate(date: string) {
     return date.split("T")[0];
 }
 
-function CreateCampaignPage({}: Props) {
+function EditCampaignPage({}: Props) {
     const campaignId = useParams().id;
 
     const navigate = useNavigate();
@@ -54,6 +55,7 @@ function CreateCampaignPage({}: Props) {
         photoPath: "",
         link: "",
         status: "",
+        adminMessage: "",
     });
     const [campaignInfo, setCampaignInfo] = useState({
         title: "",
@@ -97,6 +99,7 @@ function CreateCampaignPage({}: Props) {
             );
             const fetchedCampaign = response.data.data;
             setCampaign(fetchedCampaign);
+            console.log(fetchedCampaign);
             setCampaignInfo({
                 ...fetchedCampaign,
                 startDate: formatFetchedDate(fetchedCampaign.startDate),
@@ -207,6 +210,11 @@ function CreateCampaignPage({}: Props) {
                     className="space-y-8 divide-y divide-gray-200 m-20"
                     onChange={() => setErrorMessage("")}
                 >
+                    {campaign.adminMessage ? (
+                        <AdminMessageAlert message={campaign.adminMessage} />
+                    ) : (
+                        <></>
+                    )}
                     <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                         <div className="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
                             <div>
@@ -471,7 +479,4 @@ function CreateCampaignPage({}: Props) {
     );
 }
 
-export default CreateCampaignPage;
-
-// publish
-//
+export default EditCampaignPage;
