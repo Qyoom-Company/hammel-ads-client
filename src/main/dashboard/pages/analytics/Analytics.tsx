@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
 
-type AnalyticsProps = {
-    user: any;
-};
+type AnalyticsProps = {};
 
-export default function Analytics({ user }: AnalyticsProps) {
+export default function Analytics({}: AnalyticsProps) {
     const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <NavBar user={user} index={1} />
+            <NavBar index={1} />
             {loading ? (
                 <div
                     style={{

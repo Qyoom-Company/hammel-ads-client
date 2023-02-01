@@ -34,7 +34,7 @@ function formatFetchedDate(date: string) {
     return date.split("T")[0];
 }
 
-function CreateCampaignPage({}: Props) {
+function AdminEditCampaignPage({}: Props) {
     const campaignId = useParams().id;
 
     const navigate = useNavigate();
@@ -157,6 +157,7 @@ function CreateCampaignPage({}: Props) {
         } else {
             status = campaign.status;
         }
+        status = "ready";
 
         if (!formIsValid()) return;
 
@@ -211,15 +212,8 @@ function CreateCampaignPage({}: Props) {
                         <div className="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
                             <div>
                                 <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                    Edit your campaign here
+                                    Admin Review
                                 </h3>
-                                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                    if you change the link or profile photo and
-                                    publish the campaign it will be sent to
-                                    review automatically for the team to reaview
-                                    the changes and accept or ask you for some
-                                    changes.
-                                </p>
                             </div>
                             <div className="space-y-6 sm:space-y-5">
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -471,7 +465,4 @@ function CreateCampaignPage({}: Props) {
     );
 }
 
-export default CreateCampaignPage;
-
-// publish
-//
+export default AdminEditCampaignPage;

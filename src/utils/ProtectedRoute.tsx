@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import NotFoundPage from "./NotFoundPage";
 
 interface Props {
     children: any;
@@ -8,9 +9,13 @@ interface Props {
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
     const token = useSelector((state: any) => state.auth.token);
+    const user = useSelector((state: any) => state.user.user);
 
     if (!token) {
         return <Navigate to={{ pathname: "/login" }} replace />;
+    }
+    if (user?.isAdmin) {
+        return <Navigate to={{ pathname: "/admin/dashboard" }} replace />;
     }
 
     return children;

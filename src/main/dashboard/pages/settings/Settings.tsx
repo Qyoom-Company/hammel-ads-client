@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../shared/NavBar";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import InvalidInput from "../../../../components/alerts/InvalidInput";
 import UpdateSuccess from "../../shared/UpdateSuccess";
+import { saveUser } from "../../../../redux/user/userSlice";
+import SettingsAPI from "./api/index";
 
-type SettingsProps = {
-    user: any;
-    setUser: any;
-};
+type SettingsProps = {};
 
-export default function Settings({ user, setUser }: SettingsProps) {
+export default function Settings({}: SettingsProps) {
     const [loading, setLoading] = useState(true);
 
     const [updateInfo, setUpdateInfo] = useState({
@@ -20,71 +19,52 @@ export default function Settings({ user, setUser }: SettingsProps) {
         lastName: "",
         phoneNumber: "",
     });
-
-    console.log(updateInfo);
-
     const [errorMessage, setErrorMessage] = useState("");
     const [successContent, setSuccessContent] = useState("");
     const [showSuccessUpdate, setShowSuccessUpdate] = useState(true);
-    const navigate = useNavigate();
-    const token = useSelector((state: any) => state.auth.token);
 
-    const changePhotoHandler = (e: any) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const token = useSelector((state: any) => state.auth.token);
+    const user = useSelector((state: any) => state.user.user);
+
+    const changePhotoHandler = async (e: any) => {
         e.preventDefault();
         const profilePhoto = e.target.files[0];
         if (profilePhoto !== null) {
             const formData = new FormData();
             formData.append("profilePhoto", profilePhoto);
             setLoading(true);
-            axios
-                .post(
-                    "http://localhost:3500/api/users/upload-photo",
+            try {
+                const response = await SettingsAPI.uploadProfilePhoto(
                     formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                            authorization: `Bearer ${token}`,
-                        },
-                    }
-                )
-                .then((response) => {
-                    setUser({
+                    token
+                );
+                dispatch(
+                    saveUser({
                         ...user,
                         photoPath: response.data.data.photoPath,
-                    });
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setLoading(false);
-                });
+                    })
+                );
+                setLoading(false);
+            } catch (err: any) {
+                console.log(err);
+                setErrorMessage("invalid file type");
+                setLoading(false);
+            }
         }
     };
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3500/api/users/getuser", {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                setLoading(false);
-                const user = res.data.data.user;
-                setUser(user);
-                setUpdateInfo({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    phoneNumber: user.phoneNumber,
-                });
-            })
-            .catch((err) => {
-                if (err.response.status === 400) return navigate("/login");
-                if (err.response.status === 401)
-                    return navigate("/dashboard/verifyemail");
-            });
-    }, []);
-    const saveHandler = (e: any) => {
+        if (!user) return;
+        setLoading(false);
+        setUpdateInfo({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+        });
+    }, [user]);
+    const saveHandler = async (e: any) => {
         e.preventDefault();
         if (updateInfo.firstName.length < 3) {
             return setErrorMessage("invalid first name");
@@ -105,47 +85,32 @@ export default function Settings({ user, setUser }: SettingsProps) {
             return setErrorMessage("invalid phone number");
         }
 
-        // if (
-        //     updateInfo.firstName === user.firstName &&
-        //     updateInfo.lastName === user.lastName &&
-        //     // updateInfo.email === user?.email &&
-        //     updateInfo.phoneNumber === user.phoneNumber
-        // ) {
-        //     setSuccessContent("updated");
-        //     setShowSuccessUpdate(true);
-        //     return;
-        // }
-
         setLoading(true);
-        axios
-            .patch("http://localhost:3500/api/users/updateuser", updateInfo, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                console.log(response);
-                setUser({ ...user, ...updateInfo });
-                setSuccessContent("updated");
-                setShowSuccessUpdate(true);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                console.log(error.response.data.message);
-                setLoading(false);
-                if (
-                    error.response.data.message.includes("invalid") ||
-                    error.response.data.message.includes("email")
-                ) {
-                    setErrorMessage(error.response.data.message);
-                }
-            });
+        try {
+            const response = await SettingsAPI.updateProfile(updateInfo, token);
+
+            console.log(response);
+            dispatch(saveUser({ ...user, ...updateInfo }));
+            setSuccessContent("updated");
+            setShowSuccessUpdate(true);
+            setLoading(false);
+        } catch (err: any) {
+            console.log(err.response.data.message);
+            setLoading(false);
+            if (
+                err.response.data.message.includes("invalid") ||
+                err.response.data.message.includes("email") ||
+                err.response.data.message.includes("phone")
+            ) {
+                console.log("heey");
+                setErrorMessage(err.response.data.message);
+            }
+        }
     };
 
     return (
         <>
-            <NavBar user={user} index={-1} />
+            <NavBar index={-1} />
 
             <main className="relative mt-10">
                 <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">

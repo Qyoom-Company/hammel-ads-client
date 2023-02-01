@@ -10,7 +10,7 @@ import Campaigns from "./main/dashboard/pages/campaign/Campaigns";
 import Wallet from "./main/dashboard/pages/wallet/Wallet";
 import NotFoundPage from "./utils/NotFoundPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import ForgotPassword from "./main/auth/ForgotPassword";
 import ResetPassword from "./main/auth/ResetPassword";
@@ -21,17 +21,21 @@ import ConfirmEmail from "./main/auth/ConfirmEmail";
 import axios from "axios";
 import CreateCampaignPage from "./main/dashboard/pages/campaign/CreateCampaignPage";
 import EditCampaignPage from "./main/dashboard/pages/campaign/EditCampaignPage";
+import { saveUser } from "./redux/user/userSlice";
+import ProtectedAdminRoute from "./utils/ProtectedAdminRoute";
+import AdminEditCampaignPage from "./main/admin/pages/campaign/AdminEditCampaignPage";
+import AdminCampaigns from "./main/admin/pages/campaign/AdminCampaigns";
 export interface IApplicationProps {}
 
-function MainRoutes() {
+function AdminRoutes() {
     const token = useSelector((state: any) => state.auth.token);
-    const [user, setUser] = useState(null);
-
+    const user = useSelector((state: any) => state.user.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    console.log(user);
 
     if (!token) navigate("/login");
     useEffect(() => {
-        console.log("happened");
         axios
             .get("http://localhost:3500/api/users/getuser", {
                 headers: {
@@ -39,7 +43,63 @@ function MainRoutes() {
                 },
             })
             .then((res) => {
-                setUser(res.data.data.user);
+                if (!res.data.data.user?.isAdmin) return navigate("/notfound");
+                dispatch(saveUser(res.data.data.user));
+            })
+            .catch((err) => {
+                if (err?.response?.status === 400) return navigate("/login");
+                if (err?.response?.status === 401)
+                    return navigate("/admin/verifyemail");
+                navigate("/login");
+            });
+    }, []);
+    return (
+        <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route
+                path="/dashboard/*"
+                element={
+                    <Routes>
+                        <Route path="/" element={<AdminCampaigns />} />
+                        {/* <Route
+                            path="/create"
+                            element={<CreateCampaignPage />}
+                        /> */}
+                        <Route
+                            path="/campaigns/:id"
+                            element={<AdminEditCampaignPage />}
+                        />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                }
+            />
+            <Route path="/settings" element={<Settings />} />
+
+            <Route path="/verifyemail" element={<VerifyEmailPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+    );
+}
+
+function MainRoutes() {
+    const token = useSelector((state: any) => state.auth.token);
+    const user = useSelector((state: any) => state.user.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    console.log(user);
+
+    if (!token) navigate("/login");
+    useEffect(() => {
+        axios
+            .get("http://localhost:3500/api/users/getuser", {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                dispatch(saveUser(res.data.data.user));
+                if (res.data.data.user?.isAdmin)
+                    return navigate("/admin/dashboard");
             })
             .catch((err) => {
                 if (err?.response?.status === 400) return navigate("/login");
@@ -50,16 +110,13 @@ function MainRoutes() {
     }, []);
     return (
         <Routes>
-            <Route
-                path="/"
-                element={<Dashboard user={user} setUser={setUser} />}
-            />
-            <Route path="/analytics" element={<Analytics user={user} />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route
                 path="/campaigns/*"
                 element={
                     <Routes>
-                        <Route path="/" element={<Campaigns user={user} />} />
+                        <Route path="/" element={<Campaigns />} />
                         <Route
                             path="/create"
                             element={<CreateCampaignPage />}
@@ -69,11 +126,8 @@ function MainRoutes() {
                     </Routes>
                 }
             />
-            <Route path="/wallet" element={<Wallet user={user} />} />
-            <Route
-                path="/settings"
-                element={<Settings user={user} setUser={setUser} />}
-            />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/settings" element={<Settings />} />
 
             <Route path="/verifyemail" element={<VerifyEmailPage />} />
             <Route path="*" element={<NotFoundPage />} />
@@ -108,6 +162,15 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                             <ProtectedRoute>
                                 <MainRoutes />
                             </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/*"
+                        element={
+                            <ProtectedAdminRoute>
+                                <AdminRoutes />
+                            </ProtectedAdminRoute>
                         }
                     />
 
