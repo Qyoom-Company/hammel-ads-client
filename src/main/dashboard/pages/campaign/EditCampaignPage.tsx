@@ -222,11 +222,11 @@ function EditCampaignPage({}: Props) {
                                     Edit your campaign here
                                 </h3>
                                 <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                    if you change the link or profile photo and
-                                    publish the campaign it will be sent to
-                                    review automatically for the team to reaview
-                                    the changes and accept or ask you for some
-                                    changes.
+                                    If you change the link or campaign photo and
+                                    click publish, the campaign it will be sent
+                                    to review automatically for the team to
+                                    review the changes and accept or ask you to
+                                    edit it.
                                 </p>
                             </div>
                             <div className="space-y-6 sm:space-y-5">
