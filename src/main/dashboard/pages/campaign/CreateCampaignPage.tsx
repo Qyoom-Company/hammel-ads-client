@@ -173,20 +173,21 @@ function CreateCampaignPage({}: Props) {
                                 </p>
                             </div>
                             <div className="space-y-6 sm:space-y-5">
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="">
                                     <label
                                         htmlFor="title"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
                                         title
                                     </label>
-                                    <div className="mt-1 sm:col-span-2 sm:mt-0">
+                                    <br></br>
+                                    <div className="mt-1">
                                         <input
                                             type="text"
                                             name="title"
                                             id="title"
                                             autoComplete="given-name"
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             value={campaignInfo.title}
                                             onChange={(e) =>
                                                 setCampaignInfo({
@@ -198,13 +199,14 @@ function CreateCampaignPage({}: Props) {
                                     </div>
                                 </div>
 
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="block text-sm font-medium text-gray-700">
                                     <label
                                         htmlFor="startDate"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
                                         start date
                                     </label>
+                                    <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="date"
@@ -220,17 +222,18 @@ function CreateCampaignPage({}: Props) {
                                                     startDate: e.target.value,
                                                 });
                                             }}
-                                            className=" max-w-lg  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-600"
+                                            className=" max-w-lg  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-600"
                                         ></input>
                                     </div>
                                 </div>
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="block text-sm font-medium text-gray-700">
                                     <label
                                         htmlFor="endDate"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
                                         end date
                                     </label>
+                                    <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="date"
@@ -245,18 +248,19 @@ function CreateCampaignPage({}: Props) {
                                                     endDate: e.target.value,
                                                 })
                                             }
-                                            className=" max-w-lg  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-600"
+                                            className=" max-w-lg  border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-600"
                                         ></input>
                                     </div>
                                 </div>
 
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="block text-sm font-medium text-gray-700">
                                     <label
                                         htmlFor="budget"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
                                         Budget
                                     </label>
+                                    <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="text"
@@ -269,17 +273,18 @@ function CreateCampaignPage({}: Props) {
                                                     budget: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 "
                                         />
                                     </div>
                                 </div>
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="block text-sm font-medium text-gray-700">
                                     <label
                                         htmlFor="country"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
                                         Country
                                     </label>
+                                    <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <select
                                             id="country"
@@ -292,7 +297,7 @@ function CreateCampaignPage({}: Props) {
                                                     country: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         >
                                             <option>
                                                 Please select a country
@@ -368,13 +373,14 @@ function CreateCampaignPage({}: Props) {
                                     </div>
                                 </div>
 
-                                <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                <div className="block text-sm font-medium text-gray-700">
                                     <label
                                         htmlFor="link"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
                                         link
                                     </label>
+                                    <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="text"
@@ -387,7 +393,7 @@ function CreateCampaignPage({}: Props) {
                                                     link: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         />
                                     </div>
                                 </div>

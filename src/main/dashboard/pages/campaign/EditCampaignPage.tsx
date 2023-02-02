@@ -233,17 +233,18 @@ function EditCampaignPage({}: Props) {
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="title"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        title
+                                        title:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="text"
                                             name="title"
                                             id="title"
                                             autoComplete="given-name"
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             value={campaignInfo.title}
                                             onChange={(e) =>
                                                 setCampaignInfo({
@@ -258,10 +259,11 @@ function EditCampaignPage({}: Props) {
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="startDate"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        start date
+                                        start date:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="date"
@@ -284,10 +286,11 @@ function EditCampaignPage({}: Props) {
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="endDate"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        end date
+                                        end date:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="date"
@@ -310,10 +313,11 @@ function EditCampaignPage({}: Props) {
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="budget"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        Budget
+                                        Budget:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="text"
@@ -326,17 +330,18 @@ function EditCampaignPage({}: Props) {
                                                     budget: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         />
                                     </div>
                                 </div>
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="country"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        Country
+                                        Country:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <select
                                             id="country"
@@ -349,7 +354,7 @@ function EditCampaignPage({}: Props) {
                                                     country: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 "
                                         >
                                             <option>
                                                 Please select a country
@@ -366,9 +371,9 @@ function EditCampaignPage({}: Props) {
                                 <div className="">
                                     <label
                                         htmlFor="cover-photo"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        Campaign Image
+                                        Campaign Image:
                                     </label>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0 flex-col items-center justify-center">
                                         <div className="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 h-52 mt-10 ">
@@ -428,10 +433,11 @@ function EditCampaignPage({}: Props) {
                                 <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label
                                         htmlFor="link"
-                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                        className="block text-sm font-medium text-gray-700"
                                     >
-                                        link
+                                        link:
                                     </label>
+                                    <br />
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
                                         <input
                                             type="text"
@@ -444,7 +450,7 @@ function EditCampaignPage({}: Props) {
                                                     link: e.target.value,
                                                 })
                                             }
-                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 "
                                         />
                                     </div>
                                 </div>
