@@ -134,9 +134,7 @@ export default function AdminNavBar({ index }: AdminNavBarProps) {
                                                         {({ active }) => (
                                                             <Link
                                                                 to={
-                                                                    user?.isAdmin
-                                                                        ? "/admin/settings"
-                                                                        : "/dashboard/settings"
+                                                                    "/admin/settings"
                                                                 }
                                                                 className={classNames(
                                                                     active
@@ -283,9 +281,7 @@ export default function AdminNavBar({ index }: AdminNavBarProps) {
                                                         navigate("/");
                                                     } else {
                                                         navigate(
-                                                            user?.isAdmin
-                                                                ? "/admin/settings"
-                                                                : "/dashboard/settings"
+                                                            "/admin/settings"
                                                         );
                                                     }
                                                 }}

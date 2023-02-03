@@ -26,6 +26,7 @@ import ProtectedAdminRoute from "./utils/ProtectedAdminRoute";
 import AdminEditCampaignPage from "./main/admin/pages/campaign/AdminEditCampaignPage";
 import AdminCampaigns from "./main/admin/pages/campaign/AdminCampaigns";
 import TransactionsManagement from "./main/admin/pages/transactions/TransactionsManagement";
+import AdminSettings from "./main/admin/pages/settings/Settings";
 export interface IApplicationProps {}
 
 function AdminRoutes() {
@@ -75,7 +76,7 @@ function AdminRoutes() {
                 }
             />
             <Route path="/transactions" element={<TransactionsManagement />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<AdminSettings />} />
 
             <Route path="/verifyemail" element={<VerifyEmailPage />} />
             <Route path="*" element={<NotFoundPage />} />
