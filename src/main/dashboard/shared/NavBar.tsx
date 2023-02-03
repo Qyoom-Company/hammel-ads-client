@@ -12,9 +12,7 @@ const navigation = [
     { name: "Campaigns", href: "/dashboard/campaigns", current: false },
     { name: "Wallet", href: "/dashboard/wallet", current: false },
 ];
-const adminNavigation = [
-    { name: "Admin Dashboard", href: "/admin/dashboard", current: false },
-];
+
 const userNavigation = [{ name: "Settings" }, { name: "Sign out" }];
 
 function classNames(...classes: any) {
@@ -73,46 +71,25 @@ export default function NavBar({ index }: NavBarProps) {
                                             />
                                         </div>
                                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                                            {!user?.isAdmin &&
-                                                navigation.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        to={item.href}
-                                                        className={classNames(
-                                                            item.current
-                                                                ? "border-indigo-500 text-gray-900"
-                                                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                                                            "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                                        )}
-                                                        aria-current={
-                                                            item.current
-                                                                ? "page"
-                                                                : undefined
-                                                        }
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
-                                            {user?.isAdmin &&
-                                                adminNavigation.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        to={item.href}
-                                                        className={classNames(
-                                                            item.current
-                                                                ? "border-indigo-500 text-gray-900"
-                                                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                                                            "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                                        )}
-                                                        aria-current={
-                                                            item.current
-                                                                ? "page"
-                                                                : undefined
-                                                        }
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
+                                            {navigation.map((item) => (
+                                                <Link
+                                                    key={item.name}
+                                                    to={item.href}
+                                                    className={classNames(
+                                                        item.current
+                                                            ? "border-indigo-500 text-gray-900"
+                                                            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                                                        "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                                    )}
+                                                    aria-current={
+                                                        item.current
+                                                            ? "page"
+                                                            : undefined
+                                                    }
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -158,9 +135,7 @@ export default function NavBar({ index }: NavBarProps) {
                                                         {({ active }) => (
                                                             <Link
                                                                 to={
-                                                                    user?.isAdmin
-                                                                        ? "/admin/settings"
-                                                                        : "/dashboard/settings"
+                                                                    "/dashboard/settings"
                                                                 }
                                                                 className={classNames(
                                                                     active
@@ -239,47 +214,26 @@ export default function NavBar({ index }: NavBarProps) {
                                                 {item.name}
                                             </Disclosure.Button>
                                         ))} */}
-                                    {user?.isAdmin
-                                        ? adminNavigation.map((item) => (
-                                              <Disclosure.Button
-                                                  key={item.name}
-                                                  as="a"
-                                                  href={item.href}
-                                                  className={classNames(
-                                                      item.current
-                                                          ? "bg-indigo-50 border-indigo-500 text-indigo-700"
-                                                          : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
-                                                      "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                                                  )}
-                                                  aria-current={
-                                                      item.current
-                                                          ? "page"
-                                                          : undefined
-                                                  }
-                                              >
-                                                  {item.name}
-                                              </Disclosure.Button>
-                                          ))
-                                        : navigation.map((item) => (
-                                              <Disclosure.Button
-                                                  key={item.name}
-                                                  as="a"
-                                                  href={item.href}
-                                                  className={classNames(
-                                                      item.current
-                                                          ? "bg-indigo-50 border-indigo-500 text-indigo-700"
-                                                          : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
-                                                      "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                                                  )}
-                                                  aria-current={
-                                                      item.current
-                                                          ? "page"
-                                                          : undefined
-                                                  }
-                                              >
-                                                  {item.name}
-                                              </Disclosure.Button>
-                                          ))}
+                                    {navigation.map((item) => (
+                                        <Disclosure.Button
+                                            key={item.name}
+                                            as="a"
+                                            href={item.href}
+                                            className={classNames(
+                                                item.current
+                                                    ? "bg-indigo-50 border-indigo-500 text-indigo-700"
+                                                    : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
+                                                "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                                            )}
+                                            aria-current={
+                                                item.current
+                                                    ? "page"
+                                                    : undefined
+                                            }
+                                        >
+                                            {item.name}
+                                        </Disclosure.Button>
+                                    ))}
                                 </div>
                                 <div className="border-t border-gray-200 pt-4 pb-3">
                                     <div className="flex items-center px-4">
@@ -328,9 +282,7 @@ export default function NavBar({ index }: NavBarProps) {
                                                         navigate("/");
                                                     } else {
                                                         navigate(
-                                                            user?.isAdmin
-                                                                ? "/admin/settings"
-                                                                : "/dashboard/settings"
+                                                            "/dashboard/settings"
                                                         );
                                                     }
                                                 }}

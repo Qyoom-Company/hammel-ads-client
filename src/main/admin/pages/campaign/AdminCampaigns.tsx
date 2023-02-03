@@ -1,9 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
-import NavBar from "../../shared/NavBar";
+import AdminNavBar from "../../shared/AdminNavBar";
 import CampaignsAPI from "./api";
 import CampaignsTable from "./components/CampaignsTable";
 
@@ -33,7 +31,7 @@ export default function AdminCampaigns({}: CampaignsProps) {
 
     return (
         <>
-            <NavBar index={2} />
+            <AdminNavBar index={0} />
             {loading ? (
                 <div
                     style={{

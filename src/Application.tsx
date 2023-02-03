@@ -25,6 +25,7 @@ import { saveUser } from "./redux/user/userSlice";
 import ProtectedAdminRoute from "./utils/ProtectedAdminRoute";
 import AdminEditCampaignPage from "./main/admin/pages/campaign/AdminEditCampaignPage";
 import AdminCampaigns from "./main/admin/pages/campaign/AdminCampaigns";
+import TransactionsManagement from "./main/admin/pages/transactions/TransactionsManagement";
 export interface IApplicationProps {}
 
 function AdminRoutes() {
@@ -73,6 +74,7 @@ function AdminRoutes() {
                     </Routes>
                 }
             />
+            <Route path="/transactions" element={<TransactionsManagement />} />
             <Route path="/settings" element={<Settings />} />
 
             <Route path="/verifyemail" element={<VerifyEmailPage />} />

@@ -6,14 +6,13 @@ import { logout } from "../../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-const navigation = [
-    { name: "Dashboard", href: "/dashboard", current: false },
-    { name: "Analytics", href: "/dashboard/analytics", current: false },
-    { name: "Campaigns", href: "/dashboard/campaigns", current: false },
-    { name: "Wallet", href: "/dashboard/wallet", current: false },
-];
 const adminNavigation = [
     { name: "Admin Dashboard", href: "/admin/dashboard", current: false },
+    {
+        name: "Transactions Management",
+        href: "/admin/transactions",
+        current: false,
+    },
 ];
 const userNavigation = [{ name: "Settings" }, { name: "Sign out" }];
 
@@ -21,19 +20,19 @@ function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
 }
 
-interface NavBarProps {
+interface AdminNavBarProps {
     index: number;
 }
-export default function NavBar({ index }: NavBarProps) {
+export default function AdminNavBar({ index }: AdminNavBarProps) {
+    adminNavigation.forEach((el) => (el.current = false));
+    if (index < adminNavigation.length && index >= 0)
+        adminNavigation[index].current = true;
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const token = useSelector((state: any) => state.auth.token);
     const user = useSelector((state: any) => state.user.user);
-
-    navigation.forEach((el) => (el.current = false));
-    if (index < navigation.length && index >= 0)
-        navigation[index].current = true;
 
     const logoutHandler = () => {
         //@ts-ignore
@@ -45,8 +44,6 @@ export default function NavBar({ index }: NavBarProps) {
         navigate("/login");
         return <></>;
     }
-
-    console.log("user from navbar", user);
 
     return (
         <>
@@ -73,46 +70,25 @@ export default function NavBar({ index }: NavBarProps) {
                                             />
                                         </div>
                                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                                            {!user?.isAdmin &&
-                                                navigation.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        to={item.href}
-                                                        className={classNames(
-                                                            item.current
-                                                                ? "border-indigo-500 text-gray-900"
-                                                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                                                            "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                                        )}
-                                                        aria-current={
-                                                            item.current
-                                                                ? "page"
-                                                                : undefined
-                                                        }
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
-                                            {user?.isAdmin &&
-                                                adminNavigation.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        to={item.href}
-                                                        className={classNames(
-                                                            item.current
-                                                                ? "border-indigo-500 text-gray-900"
-                                                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                                                            "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                                                        )}
-                                                        aria-current={
-                                                            item.current
-                                                                ? "page"
-                                                                : undefined
-                                                        }
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
+                                            {adminNavigation.map((item) => (
+                                                <Link
+                                                    key={item.name}
+                                                    to={item.href}
+                                                    className={classNames(
+                                                        item.current
+                                                            ? "border-indigo-500 text-gray-900"
+                                                            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                                                        "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                                    )}
+                                                    aria-current={
+                                                        item.current
+                                                            ? "page"
+                                                            : undefined
+                                                    }
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -239,47 +215,26 @@ export default function NavBar({ index }: NavBarProps) {
                                                 {item.name}
                                             </Disclosure.Button>
                                         ))} */}
-                                    {user?.isAdmin
-                                        ? adminNavigation.map((item) => (
-                                              <Disclosure.Button
-                                                  key={item.name}
-                                                  as="a"
-                                                  href={item.href}
-                                                  className={classNames(
-                                                      item.current
-                                                          ? "bg-indigo-50 border-indigo-500 text-indigo-700"
-                                                          : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
-                                                      "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                                                  )}
-                                                  aria-current={
-                                                      item.current
-                                                          ? "page"
-                                                          : undefined
-                                                  }
-                                              >
-                                                  {item.name}
-                                              </Disclosure.Button>
-                                          ))
-                                        : navigation.map((item) => (
-                                              <Disclosure.Button
-                                                  key={item.name}
-                                                  as="a"
-                                                  href={item.href}
-                                                  className={classNames(
-                                                      item.current
-                                                          ? "bg-indigo-50 border-indigo-500 text-indigo-700"
-                                                          : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
-                                                      "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                                                  )}
-                                                  aria-current={
-                                                      item.current
-                                                          ? "page"
-                                                          : undefined
-                                                  }
-                                              >
-                                                  {item.name}
-                                              </Disclosure.Button>
-                                          ))}
+                                    {adminNavigation.map((item) => (
+                                        <Disclosure.Button
+                                            key={item.name}
+                                            as="a"
+                                            href={item.href}
+                                            className={classNames(
+                                                item.current
+                                                    ? "bg-indigo-50 border-indigo-500 text-indigo-700"
+                                                    : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
+                                                "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                                            )}
+                                            aria-current={
+                                                item.current
+                                                    ? "page"
+                                                    : undefined
+                                            }
+                                        >
+                                            {item.name}
+                                        </Disclosure.Button>
+                                    ))}
                                 </div>
                                 <div className="border-t border-gray-200 pt-4 pb-3">
                                     <div className="flex items-center px-4">
