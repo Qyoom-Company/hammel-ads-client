@@ -6,6 +6,7 @@ interface IUser {
     phoneNumber: string;
     isEmailConfirmed: Boolean;
     photoPath: string | null;
+    balance: number;
 }
 
 export default IUser;
