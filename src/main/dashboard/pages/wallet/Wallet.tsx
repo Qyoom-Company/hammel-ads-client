@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
+import AddBalanceButton from "./components/AddBalanceButton";
 import BalanceInfoTable from "./components/BalanceInfoTable";
+import NoPaymentMethods from "./components/NoPaymentMethods";
 
 type WalletProps = {};
 
@@ -37,6 +39,10 @@ export default function Wallet({}: WalletProps) {
                         ) : (
                             <div className="px-4 py-8 sm:px-0">
                                 <BalanceInfoTable />
+                                <br></br>
+                                <div className="ml-4">
+                                    <AddBalanceButton />
+                                </div>
                             </div>
                         )}
                     </div>

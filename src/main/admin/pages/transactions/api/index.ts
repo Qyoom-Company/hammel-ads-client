@@ -8,8 +8,8 @@ const TransactionsAPI = {
         amount: string,
         token: string
     ) {
-        return axios.put(
-            `${mainRoute}/api/users/increase-balance`,
+        return axios.post(
+            `${mainRoute}/api/payments/increase-balance`,
             { userEmail: userEmail, amount: amount },
             {
                 headers: {

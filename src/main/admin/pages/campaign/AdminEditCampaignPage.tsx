@@ -148,6 +148,7 @@ function AdminEditCampaignPage({}: Props) {
             }
             return false;
         }
+        console.log(campaignInfo.adminMessage);
         return true;
     };
 
@@ -465,7 +466,7 @@ function AdminEditCampaignPage({}: Props) {
                                 name="comment"
                                 id="comment"
                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                value={campaignInfo.adminMessage}
+                                value={campaignInfo.adminMessage || ""}
                                 onChange={(e) =>
                                     setCampaignInfo({
                                         ...campaignInfo,

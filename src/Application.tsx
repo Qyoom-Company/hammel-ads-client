@@ -27,6 +27,7 @@ import AdminEditCampaignPage from "./main/admin/pages/campaign/AdminEditCampaign
 import AdminCampaigns from "./main/admin/pages/campaign/AdminCampaigns";
 import TransactionsManagement from "./main/admin/pages/transactions/TransactionsManagement";
 import AdminSettings from "./main/admin/pages/settings/Settings";
+import AddBalancePage from "./main/dashboard/pages/wallet/pages/AddBalancePage";
 export interface IApplicationProps {}
 
 function AdminRoutes() {
@@ -130,6 +131,19 @@ function MainRoutes() {
                 }
             />
             <Route path="/wallet" element={<Wallet />} />
+            <Route
+                path="/wallet/*"
+                element={
+                    <Routes>
+                        <Route path="/" element={<Wallet />} />
+                        <Route
+                            path="/addbalance"
+                            element={<AddBalancePage />}
+                        />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                }
+            />
             <Route path="/settings" element={<Settings />} />
 
             <Route path="/verifyemail" element={<VerifyEmailPage />} />

@@ -250,7 +250,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="first-name"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    First name
+                                                    First Name
                                                 </label>
                                                 <input
                                                     type="text"
@@ -274,7 +274,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="last-name"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    Last name
+                                                    Last Name
                                                 </label>
                                                 <input
                                                     type="text"
@@ -322,7 +322,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="phoneNumber"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    phoneNumber
+                                                    Phone Number
                                                 </label>
                                                 <input
                                                     type="text"
