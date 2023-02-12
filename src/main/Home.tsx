@@ -6,4 +6,3 @@ function Home() {
 }
 
 export default Home;
-// 2563EB
