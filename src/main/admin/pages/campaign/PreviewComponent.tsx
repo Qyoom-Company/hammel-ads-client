@@ -1,4 +1,3 @@
-import React from "react";
 import preview from "../../../../images/PhonePreviewImage.png";
 import closeIcon from "../../../../images/closeTabForPreview.png";
 
@@ -15,6 +14,7 @@ function PreviewComponent({ photoPath }: Props) {
                     minWidth: "462px",
                     minHeight: "768px",
                 }}
+                alt=""
             />
 
             <img
@@ -27,6 +27,7 @@ function PreviewComponent({ photoPath }: Props) {
                     left: "131px",
                     display: !photoPath ? "none" : "inherit",
                 }}
+                alt=""
             />
             <img
                 src={closeIcon}
@@ -38,6 +39,7 @@ function PreviewComponent({ photoPath }: Props) {
                     left: "325px",
                     display: !photoPath ? "none" : "inherit",
                 }}
+                alt=""
             />
         </div>
     );

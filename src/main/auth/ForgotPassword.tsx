@@ -1,11 +1,8 @@
-import axios, { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InvalidInput from "../../components/alerts/InvalidInput";
 import NoUserFound from "../../components/alerts/NoUserFound";
-import { login } from "../../redux/auth/authSlice";
-import InvalidPasswordModal from "../../utils/InvalidPasswordModal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 type Props = {};

@@ -44,6 +44,19 @@ const WalletAPI = {
             }
         );
     },
+    removePaymentMethod: function (token: string, cardToken: string) {
+        return axios.delete(
+            "http://localhost:3500/api/payments/paymentmethods",
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+                data: {
+                    token: cardToken,
+                },
+            }
+        );
+    },
 };
 
 export default WalletAPI;

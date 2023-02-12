@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
 import ClicksLineChart from "./components/ClicksLineChart";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(" ");
-}
-interface DashboardProps {}
-function Dashboard({}: DashboardProps) {
+function Dashboard() {
     const [loading, setLoading] = useState(false);
 
     const lastTwoWeeksStats = [

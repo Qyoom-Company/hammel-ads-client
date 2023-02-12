@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import InvalidInput from "../../../../components/alerts/InvalidInput";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
-import SuccessModel from "../../../../utils/SuccessModel";
 import NavBar from "../../shared/NavBar";
 import UpdateSuccess from "../../shared/UpdateSuccess";
 import CampaignsAPI from "./api";
-import CampaignsTable from "./components/CampaignsTable";
-import preview from "../../../../images/PhonePreviewImage.png";
 import PreviewComponent from "./PreviewComponent";
 import countryList from "./staticData/countryList";
 

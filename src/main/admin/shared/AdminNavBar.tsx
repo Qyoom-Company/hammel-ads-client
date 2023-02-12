@@ -4,7 +4,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 
 const adminNavigation = [
     { name: "Admin Dashboard", href: "/admin/dashboard", current: false },

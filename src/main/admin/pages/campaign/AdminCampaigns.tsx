@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import AdminNavBar from "../../shared/AdminNavBar";
 import CampaignsAPI from "./api";
 import CampaignsTable from "./components/CampaignsTable";
 
-type CampaignsProps = {};
-
-export default function AdminCampaigns({}: CampaignsProps) {
+export default function AdminCampaigns() {
     const token = useSelector((state: any) => state.auth.token);
     const [loading, setLoading] = useState(false);
     const [campaigns, setCampaigns] = useState([]);

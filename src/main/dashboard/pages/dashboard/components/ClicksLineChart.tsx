@@ -1,10 +1,8 @@
-import React from "react";
 import { Chart, registerables } from "chart.js";
-import { Line, Pie } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 Chart.register(...registerables);
 
-type Props = {};
-function ClicksLineChart({}: Props) {
+function ClicksLineChart() {
     const Data = [
         {
             id: 1,

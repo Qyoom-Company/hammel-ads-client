@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import WalletAPI from "../api";
 import CreditCardView from "../components/CreditCardView";
-import NewPaymentMethodButton from "../components/NewPaymentMethodButton";
-import PaymentMethodsList from "../components/PaymentMethodsList";
-import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
 import LoadingSpinner from "../../../../../utils/LoadingSpinner";
 import UpdateSuccess from "../../../shared/UpdateSuccess";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 import InvalidInput from "../../../../../components/alerts/InvalidInput";
 const paymentOptions = [
     { id: "credit-card", title: "Mastercard/Visa" },
@@ -17,13 +12,7 @@ const paymentOptions = [
     { id: "etransfer", title: "eTransfer" },
 ];
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-}
-
-type Props = {};
-
-const AddBalancePage = (props: Props) => {
+const AddBalancePage = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 

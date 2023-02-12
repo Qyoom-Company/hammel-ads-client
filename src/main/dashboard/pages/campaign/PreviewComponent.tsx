@@ -1,4 +1,3 @@
-import React from "react";
 import preview from "../../../../images/PhonePreviewImage.png";
 import closeIcon from "../../../../images/closeTabForPreview.png";
 

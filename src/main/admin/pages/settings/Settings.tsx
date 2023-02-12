@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import AdminNavBar from "../../shared/AdminNavBar";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import InvalidInput from "../../../../components/alerts/InvalidInput";
@@ -9,9 +7,7 @@ import UpdateSuccess from "../../shared/UpdateSuccess";
 import { saveUser } from "../../../../redux/user/userSlice";
 import SettingsAPI from "./api/index";
 
-type SettingsProps = {};
-
-export default function Settings({}: SettingsProps) {
+export default function Settings() {
     const [loading, setLoading] = useState(true);
 
     const [updateInfo, setUpdateInfo] = useState({
@@ -23,7 +19,6 @@ export default function Settings({}: SettingsProps) {
     const [successContent, setSuccessContent] = useState("");
     const [showSuccessUpdate, setShowSuccessUpdate] = useState(true);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector((state: any) => state.auth.token);
     const user = useSelector((state: any) => state.user.user);
