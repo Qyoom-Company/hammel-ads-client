@@ -15,8 +15,8 @@ export default function PaymentMethodsList({ paymentMethods }: Props) {
                     key={index}
                     className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
                 >
-                    <CreditCardView cardInfo={paymentMethod.cardInfo} />
-                    <CreditCardView cardInfo={paymentMethod.cardInfo} />
+                    {/* <CreditCardView cardInfo={paymentMethod.cardInfo} />
+                    <CreditCardView cardInfo={paymentMethod.cardInfo} /> */}
                 </li>
             ))}
         </ul>

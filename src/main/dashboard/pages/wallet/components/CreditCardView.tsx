@@ -10,22 +10,46 @@ interface CardInfoType {
 
 type Props = {
     cardInfo: CardInfoType;
+    setSelectedPaymentMethod: any;
+    selectedPaymentMethod: string;
 };
 
-const CreditCardView = ({ cardInfo }: Props) => {
+const CreditCardView = ({
+    cardInfo,
+    setSelectedPaymentMethod,
+    selectedPaymentMethod,
+}: Props) => {
+    console.log(
+        "hello",
+        selectedPaymentMethod,
+        cardInfo.number === selectedPaymentMethod,
+        cardInfo
+    );
     return (
-        <div className="w-full h-40 bg-gradient-to-r from-indigo-600 via-indigo-800 to-gray-800 rounded-lg shadow-lg cursor-pointer">
+        <div
+            className="w-64 h-40 bg-gradient-to-r from-indigo-600 via-indigo-800 to-gray-800 rounded-lg shadow-lg cursor-pointer"
+            style={{
+                backgroundColor: "red",
+                marginBottom: "5px",
+                border:
+                    selectedPaymentMethod === cardInfo.number
+                        ? "2px solid black"
+                        : "1px solid blue",
+                opacity: selectedPaymentMethod === cardInfo.number ? 1 : 0.8,
+            }}
+            onClick={() => setSelectedPaymentMethod(cardInfo.number)}
+        >
             <div className="flex justify-between m-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="34"
                     height="34"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="#ffffff"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                 >
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <rect x="3" y="5" width="18" height="14" rx="3" />

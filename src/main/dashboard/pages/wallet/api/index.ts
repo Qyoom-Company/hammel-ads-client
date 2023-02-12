@@ -26,6 +26,24 @@ const WalletAPI = {
             }
         );
     },
+    executePaymentUsingToken: function (
+        token: string,
+        paymentToken: string,
+        amount: number
+    ) {
+        return axios.post(
+            "http://localhost:3500/api/payments/directpayment",
+            {
+                token: paymentToken,
+                amount,
+            },
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }
+        );
+    },
 };
 
 export default WalletAPI;
