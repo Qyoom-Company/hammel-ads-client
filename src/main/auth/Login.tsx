@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InvalidInput from "../../components/alerts/InvalidInput";
 import { login, reset } from "../../redux/auth/authSlice";
 import InvalidPasswordModal from "../../utils/InvalidPasswordModal";
@@ -8,6 +8,7 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 import SuccessModel from "../../utils/SuccessModel";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state: any) => state.auth
@@ -40,6 +41,9 @@ export default function LoginPage() {
         if (isError) {
             setShowPasswordIncorrect(true);
         }
+        if (isSuccess) {
+            navigate("/dashboard");
+        }
     }, [user, isError, isLoading, isSuccess, message]);
 
     const signInHandler = async (e: any) => {
@@ -59,12 +63,7 @@ export default function LoginPage() {
         dispatch(login(userData));
     };
 
-    return isSuccess ? (
-        <SuccessModel
-            title="Success"
-            description="You have Logged in to your account!"
-        />
-    ) : (
+    return (
         <>
             <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
