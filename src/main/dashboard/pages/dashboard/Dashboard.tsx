@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
 import ClicksLineChart from "./components/ClicksLineChart";
@@ -6,12 +7,13 @@ import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 
 function Dashboard() {
     const [loading, setLoading] = useState(false);
+    const user = useSelector((state: any) => state.user.user);
 
     const lastTwoWeeksStats = [
-        { name: "ad appearance", stat: "71,897" },
-        { name: "clicks", stat: "10,000" },
+        { name: "total views", stat: "71,897" },
+        { name: "total clicks", stat: "10,000" },
         { name: "click rate per 1000 appearances", stat: "10%" },
-        { name: "Wallet", stat: "1000$" },
+        { name: "Wallet", stat: `$${user.balance}` },
     ];
 
     return (
