@@ -13,7 +13,7 @@ function Dashboard() {
         { name: "total views", stat: "71,897" },
         { name: "total clicks", stat: "10,000" },
         { name: "click rate per 1000 appearances", stat: "10%" },
-        { name: "Wallet", stat: `$${user.balance}` },
+        { name: "Wallet", stat: `$${user?.balance?.toFixed(2)}` },
     ];
 
     return (

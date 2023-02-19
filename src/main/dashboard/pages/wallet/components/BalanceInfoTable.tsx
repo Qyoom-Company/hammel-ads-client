@@ -33,7 +33,7 @@ const BalanceInfoTable = (props: Props) => {
                         Account Balance
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        ${user?.balance}
+                        ${user?.balance?.toFixed(2)}
                     </dd>
                 </div>
             </dl>

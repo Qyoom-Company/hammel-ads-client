@@ -148,16 +148,6 @@ function EditCampaignPage({}: Props) {
     };
 
     const saveHandler = async () => {
-        let status;
-        if (
-            campaign.photoPath !== campaignInfo.photoPath ||
-            campaign.link !== campaignInfo.link
-        ) {
-            status = "in review";
-        } else {
-            status = campaign.status;
-        }
-
         if (!formIsValid()) return;
 
         try {
@@ -165,16 +155,13 @@ function EditCampaignPage({}: Props) {
                 ...campaignInfo,
                 startDate: formatDate(campaignInfo.startDate),
                 endDate: formatDate(campaignInfo.endDate),
-                status,
             };
-            console.log(data);
             const response = await CampaignsAPI.updateCampaign(
                 data,
                 campaign._id,
                 token
             );
             setShowSuccessUpdate(true);
-            console.log(response, "response");
         } catch (err: any) {
             setErrorMessage(err.response.data.message);
             console.log(err);

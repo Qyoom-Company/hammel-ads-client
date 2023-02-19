@@ -26,6 +26,10 @@ function dateFormater(date: Date, separator: string) {
     return dayString + separator + monthString + separator + String(year);
 }
 
+function formatAmount(x: number) {
+    return x.toFixed(2);
+}
+
 function statusStyles(status: string): string {
     // console.log(status);
     switch (status) {
@@ -70,12 +74,12 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
             </td>
             {/* // Budget */}
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {campaign.budget}
+                ${formatAmount(campaign.budget)}
             </td>
 
             {/* // money spent */}
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {campaign.moneySpent}
+                ${formatAmount(campaign.moneySpent)}
             </td>
 
             {/* // clicks */}
@@ -87,7 +91,9 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
             {/* // click rate */}
 
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {campaign.clickRate || "not calculated"}
+                {campaign.clickRate !== null
+                    ? formatAmount(campaign.clickRate)
+                    : "not calculated"}
             </td>
 
             {/* // status */}
