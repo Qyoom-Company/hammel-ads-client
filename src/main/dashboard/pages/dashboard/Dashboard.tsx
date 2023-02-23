@@ -1,20 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
+import AnalyticsAPI from "../../shared/AnalyticsAPI";
 import NavBar from "../../shared/NavBar";
-import ClicksLineChart from "./components/ClicksLineChart";
+import ViewsLineChart from "./components/ViewsLineChart";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
+import ClicksLineChart from "./components/ClicksLineChart";
 
 function Dashboard() {
     const [loading, setLoading] = useState(false);
+    const [stats, setStats] = useState({
+        clicks: 0,
+        views: 0,
+        clickRate: null,
+    });
+
     const user = useSelector((state: any) => state.user.user);
+    const token = useSelector((state: any) => state.auth.token);
 
     const lastTwoWeeksStats = [
-        { name: "total views", stat: "71,897" },
-        { name: "total clicks", stat: "10,000" },
-        { name: "click rate per 1000 appearances", stat: "10%" },
-        { name: "Wallet", stat: `$${user?.balance?.toFixed(2)}` },
+        { name: "Total Views", stat: `${stats.views}` },
+        { name: "Total Clicks", stat: `${stats.clicks}` },
+        {
+            name: "Click Rate",
+            stat: stats.clickRate ? `${stats.clickRate}%` : `not calculated`,
+        },
+        { name: "Wallet", stat: `$${user?.balance?.toFixed(2) || ""}` },
     ];
+
+    const getUserStats = async () => {
+        try {
+            const today = new Date(); // Get today's date
+            const lastTwoWeeks = new Date(
+                today.getTime() - 14 * 24 * 60 * 60 * 1000
+            ); // Subtract 14 days in milliseconds to get the date two weeks ago
+
+            const startDate = lastTwoWeeks.toISOString().split("T")[0]; // Convert date to ISO format and extract the date string
+            const endDate = today.toISOString().split("T")[0]; // Do the same for today's date
+            const stats = await AnalyticsAPI.getUserStats(
+                token,
+                startDate,
+                endDate
+            );
+
+            console.log("staaaaaaaats", setStats(stats.data.data));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getUserStats();
+    }, []);
 
     return (
         <>
@@ -43,9 +80,12 @@ function Dashboard() {
                     <main>
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <LastTwoWeeksStats stats={lastTwoWeeksStats} />
+                            <br></br> <br></br>
+                            <ViewsLineChart />
+                            <br></br> <br></br>
+                            <ClicksLineChart />
                         </div>
                     </main>
-                    <ClicksLineChart />
                 </div>
             )}
         </>

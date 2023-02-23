@@ -58,7 +58,7 @@ function formatDateToLabel(dateString: string): string {
     return `${month} ${day}`;
 }
 
-function ClicksLineChart() {
+function ViewsLineChart() {
     const [chartData, setChartData] = useState<ChartData>({
         labels: [],
         datasets: [],
@@ -76,6 +76,14 @@ function ClicksLineChart() {
             const startDate = formatDate(lastTwoWeeks); // Convert date to ISO format and extract the date string
             const endDate = formatDate(today); // Do the same for today's date
 
+            console.log("startdate", startDate);
+            console.log("enddate", endDate);
+            const views = await AnalyticsAPI.getTotalAnalytics(
+                token,
+                "view",
+                startDate,
+                endDate
+            );
             const clicks = await AnalyticsAPI.getTotalAnalytics(
                 token,
                 "click",
@@ -85,17 +93,17 @@ function ClicksLineChart() {
             console.log(
                 "response",
                 setChartData({
-                    labels: clicks.data.data.labels.map(
+                    labels: views.data.data.labels.map(
                         (date: string, i: number) => formatDateToLabel(date)
                     ),
                     datasets: [
                         {
-                            label: "Number Of Clicks",
-                            data: clicks.data.data.datasets,
-                            borderColor: "#f74d64",
+                            label: "Number Of Views",
+                            data: views.data.data.datasets,
+                            borderColor: "#6366f1",
                             backgroundColor: "transparent",
                             pointBorderColor: "transparent",
-                            pointBackgroundColor: "#f74d64",
+                            pointBackgroundColor: "#6366f1",
                             pointBorderWidth: 8,
                             borderWidth: 7,
                             fill: false,
@@ -133,6 +141,7 @@ function ClicksLineChart() {
                 },
             },
         },
+
         // plugins: {
         //     legend: {
         //         display: false,
@@ -143,4 +152,4 @@ function ClicksLineChart() {
     return <Line data={chartData} options={options} />;
 }
 
-export default ClicksLineChart;
+export default ViewsLineChart;
