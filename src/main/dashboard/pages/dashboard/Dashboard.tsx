@@ -23,7 +23,7 @@ function Dashboard() {
         { name: "Total Clicks", stat: `${stats.clicks}` },
         {
             name: "Click Rate",
-            stat: stats.clickRate ? `${stats.clickRate}%` : `not calculated`,
+            stat: stats.clickRate ? `${stats.clickRate}%` : `Not Calculated`,
         },
         { name: "Wallet", stat: `$${user?.balance?.toFixed(2) || ""}` },
     ];
@@ -34,7 +34,6 @@ function Dashboard() {
             const lastTwoWeeks = new Date(
                 today.getTime() - 14 * 24 * 60 * 60 * 1000
             ); // Subtract 14 days in milliseconds to get the date two weeks ago
-
             const startDate = lastTwoWeeks.toISOString().split("T")[0]; // Convert date to ISO format and extract the date string
             const endDate = today.toISOString().split("T")[0]; // Do the same for today's date
             const stats = await AnalyticsAPI.getUserStats(

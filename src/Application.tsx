@@ -64,10 +64,6 @@ function AdminRoutes() {
                 element={
                     <Routes>
                         <Route path="/" element={<AdminCampaigns />} />
-                        {/* <Route
-                            path="/create"
-                            element={<CreateCampaignPage />}
-                        /> */}
                         <Route
                             path="/campaigns/:id"
                             element={<AdminEditCampaignPage />}
