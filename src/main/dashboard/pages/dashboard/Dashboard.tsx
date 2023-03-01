@@ -79,10 +79,31 @@ function Dashboard() {
                     <main>
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <LastTwoWeeksStats stats={lastTwoWeeksStats} />
+                            <br /> <br />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    gap: "10px",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "50%",
+                                        height: "350px",
+                                    }}
+                                >
+                                    <ViewsLineChart />
+                                </div>
+                                <div
+                                    style={{
+                                        width: "50%",
+                                    }}
+                                >
+                                    <ClicksLineChart />
+                                </div>
+                            </div>
                             <br></br> <br></br>
-                            <ViewsLineChart />
-                            <br></br> <br></br>
-                            <ClicksLineChart />
                         </div>
                     </main>
                 </div>

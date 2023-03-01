@@ -119,7 +119,7 @@ function ClicksLineChart() {
                 ticks: {
                     // display: false,
                     font: {
-                        size: 14,
+                        size: 10,
                     },
                 },
                 grid: {
