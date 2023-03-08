@@ -19,7 +19,7 @@ interface ChartDataset {
     fill: boolean;
     pointBorderColor: string;
     pointBackgroundColor: string;
-
+    pointRadius: number;
     pointBorderWidth: number;
     borderWidth: number;
     tension: number;
@@ -90,28 +90,27 @@ function ViewsLineChart() {
                 startDate,
                 endDate
             );
-            console.log(
-                "response",
-                setChartData({
-                    labels: views.data.data.labels.map(
-                        (date: string, i: number) => formatDateToLabel(date)
-                    ),
-                    datasets: [
-                        {
-                            label: "Number Of Views",
-                            data: views.data.data.datasets,
-                            borderColor: "#6366f1",
-                            backgroundColor: "transparent",
-                            pointBorderColor: "transparent",
-                            pointBackgroundColor: "#6366f1",
-                            pointBorderWidth: 8,
-                            borderWidth: 7,
-                            fill: false,
-                            tension: 0.4,
-                        },
-                    ],
-                })
-            );
+
+            setChartData({
+                labels: views.data.data.labels.map((date: string, i: number) =>
+                    formatDateToLabel(date)
+                ),
+                datasets: [
+                    {
+                        label: "Number Of Views",
+                        data: views.data.data.datasets,
+                        borderColor: "#6366f1",
+                        backgroundColor: "transparent",
+                        pointBorderColor: "transparent",
+                        pointBackgroundColor: "#6366f1",
+                        pointBorderWidth: 8,
+                        borderWidth: 7,
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 7,
+                    },
+                ],
+            });
         } catch (err) {
             console.log(err);
         }
@@ -125,7 +124,7 @@ function ViewsLineChart() {
         scales: {
             x: {
                 ticks: {
-                    // display: false,
+                    display: false,
                     font: {
                         size: 10,
                     },
@@ -139,14 +138,15 @@ function ViewsLineChart() {
                 ticks: {
                     precision: 0,
                 },
+                beginAtZero: true,
             },
         },
 
-        // plugins: {
-        //     legend: {
-        //         display: false,
-        //     },
-        // },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
     };
 
     return <Line data={chartData} options={options} />;

@@ -6,6 +6,7 @@ import NavBar from "../../shared/NavBar";
 import ViewsLineChart from "./components/ViewsLineChart";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 import ClicksLineChart from "./components/ClicksLineChart";
+import ChartCard from "../../shared/ChartCard";
 
 function Dashboard() {
     const [loading, setLoading] = useState(false);
@@ -90,17 +91,28 @@ function Dashboard() {
                                 <div
                                     style={{
                                         width: "50%",
-                                        height: "350px",
                                     }}
                                 >
-                                    <ViewsLineChart />
+                                    <ChartCard
+                                        name="Views"
+                                        from="16 jan"
+                                        to="20 jan"
+                                    >
+                                        <ViewsLineChart />
+                                    </ChartCard>
                                 </div>
                                 <div
                                     style={{
                                         width: "50%",
                                     }}
                                 >
-                                    <ClicksLineChart />
+                                    <ChartCard
+                                        name="Clicks"
+                                        from="16 jan"
+                                        to="20 jan"
+                                    >
+                                        <ClicksLineChart />
+                                    </ChartCard>
                                 </div>
                             </div>
                             <br></br> <br></br>

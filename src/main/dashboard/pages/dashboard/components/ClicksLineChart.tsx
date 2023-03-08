@@ -19,7 +19,7 @@ interface ChartDataset {
     fill: boolean;
     pointBorderColor: string;
     pointBackgroundColor: string;
-
+    pointRadius: number;
     pointBorderWidth: number;
     borderWidth: number;
     tension: number;
@@ -95,8 +95,9 @@ function ClicksLineChart() {
                             borderColor: "#f74d64",
                             backgroundColor: "transparent",
                             pointBorderColor: "transparent",
+                            pointRadius: 7,
                             pointBackgroundColor: "#f74d64",
-                            pointBorderWidth: 8,
+                            pointBorderWidth: 30,
                             borderWidth: 7,
                             fill: false,
                             tension: 0.4,
@@ -117,9 +118,9 @@ function ClicksLineChart() {
         scales: {
             x: {
                 ticks: {
-                    // display: false,
+                    display: false,
                     font: {
-                        size: 10,
+                        size: 12,
                     },
                 },
                 grid: {
@@ -127,17 +128,20 @@ function ClicksLineChart() {
                 },
             },
             y: {
-                grid: {},
+                grid: {
+                    display: true,
+                },
                 ticks: {
                     precision: 0,
                 },
+                beginAtZero: true,
             },
         },
-        // plugins: {
-        //     legend: {
-        //         display: false,
-        //     },
-        // },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
     };
 
     return <Line data={chartData} options={options} />;

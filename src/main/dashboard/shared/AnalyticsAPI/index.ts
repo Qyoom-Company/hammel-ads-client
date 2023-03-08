@@ -21,53 +21,26 @@ const AnalyticsAPI = {
         token: string,
         type: string,
         from: string,
-        to: string
+        to: string,
+        country: string | null = null,
+        campaignName: string | null = null
     ) {
-        console.log(type);
+        console.log(
+            country,
+            campaignName,
+            "htis -<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        );
         return axios.post(
             `${mainRoute}/api/analytics/user-analytics`,
             {
                 type,
                 from,
                 to,
+                country,
+                campaignName,
             },
             {
                 headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            }
-        );
-    },
-    createCampaign: function (data: any, token: string) {
-        return axios.post(`${mainRoute}/api/campaigns/`, data, {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        });
-    },
-    updateCampaign: function (
-        updateInfo: any,
-        campaignId: string,
-        token: string
-    ) {
-        return axios.patch(
-            `${mainRoute}/api/campaigns/${campaignId}`,
-            updateInfo,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            }
-        );
-    },
-
-    uploadCampaignPhoto: function (campaignPhotoData: FormData, token: string) {
-        return axios.post(
-            "http://localhost:3500/api/campaigns/upload-campaign-photo",
-            campaignPhotoData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
                     authorization: `Bearer ${token}`,
                 },
             }
