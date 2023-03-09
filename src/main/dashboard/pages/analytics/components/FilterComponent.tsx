@@ -42,10 +42,6 @@ const Header: React.FC<Props> = ({
 }) => {
     const token = useSelector((state: any) => state.auth.token);
 
-    // const [fromDate, setFromDate] = useState(new Date());
-    // const [toDate, setToDate] = useState(new Date());
-    // const [nameFilter, setNameFilter] = useState("select campaign");
-    // const [countryFilter, setCountryFilter] = useState("select country");
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [countryList, setCountryList] = useState<String[]>([]);
 
@@ -58,9 +54,6 @@ const Header: React.FC<Props> = ({
                 (campaign: any) => campaign.country
             );
             countries = [...new Set(countries)];
-            // let names = response.data.data.map(
-            //     (campaign: any) => campaign.title
-            // );
             setCountryList(countries);
             setCampaigns(response.data.data);
         } catch (err: any) {
@@ -93,11 +86,13 @@ const Header: React.FC<Props> = ({
     }, [nameFilter]);
 
     return (
-        <div className="bg-white shadow  bg-gray-50 mg-20 mb-10">
+        <div className=" shadow  bg-gray-50 mg-20 mb-10">
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-around flex-col sm:flex-row ">
                 <div className=" lg:w-1/3 mb-4 lg:mb-0 mx-4">
-                    <span className="text-gray-500">Filter by Date:</span>
-                    <div className="flex">
+                    <span className="text-sm font-medium leading-6 text-gray-500">
+                        Filter by Date:
+                    </span>
+                    <div className="flex mt-2">
                         <div className="mr-2">
                             <DatePicker
                                 // minDate={new Date("01-05-2023")}
@@ -105,15 +100,19 @@ const Header: React.FC<Props> = ({
                                 onChange={(date: Date) => {
                                     setFromDate(date);
                                 }}
+                                className="border-gray-100 relative w-52 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
-                        <h3 className="mr-2 mt-2 align-center">to</h3>
+                        <h3 className="mr-2 mt-2 align-center text-sm font-medium leading-6 text-gray-400">
+                            to
+                        </h3>
                         <div>
                             <DatePicker
                                 selected={toDate}
                                 onChange={(date: Date) => {
                                     setToDate(date);
                                 }}
+                                className="border-gray-100 relative w-52 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>

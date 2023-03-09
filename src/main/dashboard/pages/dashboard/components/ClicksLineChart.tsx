@@ -70,7 +70,7 @@ function ClicksLineChart() {
         try {
             const today = new Date(); // Get today's date
             const lastTwoWeeks = new Date(
-                today.getTime() - 14 * 24 * 60 * 60 * 1000
+                today.getTime() - 13 * 24 * 60 * 60 * 1000
             ); // Subtract 14 days in milliseconds to get the date two weeks ago
 
             const startDate = formatDate(lastTwoWeeks); // Convert date to ISO format and extract the date string
@@ -82,29 +82,26 @@ function ClicksLineChart() {
                 startDate,
                 endDate
             );
-            console.log(
-                "response",
-                setChartData({
-                    labels: clicks.data.data.labels.map(
-                        (date: string, i: number) => formatDateToLabel(date)
-                    ),
-                    datasets: [
-                        {
-                            label: "Number Of Clicks",
-                            data: clicks.data.data.datasets,
-                            borderColor: "#f74d64",
-                            backgroundColor: "transparent",
-                            pointBorderColor: "transparent",
-                            pointRadius: 7,
-                            pointBackgroundColor: "#f74d64",
-                            pointBorderWidth: 30,
-                            borderWidth: 7,
-                            fill: false,
-                            tension: 0.4,
-                        },
-                    ],
-                })
-            );
+            setChartData({
+                labels: clicks.data.data.labels.map((date: string, i: number) =>
+                    formatDateToLabel(date)
+                ),
+                datasets: [
+                    {
+                        label: "Number Of Clicks",
+                        data: clicks.data.data.datasets,
+                        borderColor: "#f74d64",
+                        backgroundColor: "transparent",
+                        pointBorderColor: "transparent",
+                        pointRadius: 7,
+                        pointBackgroundColor: "#f74d64",
+                        pointBorderWidth: 30,
+                        borderWidth: 7,
+                        fill: false,
+                        tension: 0.4,
+                    },
+                ],
+            });
         } catch (err) {
             console.log(err);
         }

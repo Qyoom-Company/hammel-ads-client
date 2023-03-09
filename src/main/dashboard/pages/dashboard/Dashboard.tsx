@@ -8,8 +8,30 @@ import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 import ClicksLineChart from "./components/ClicksLineChart";
 import ChartCard from "../../shared/ChartCard";
 
+function formatDateToLabel(dateString: string): string {
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    const dateParts = dateString.split("-");
+    const monthIndex = parseInt(dateParts[1], 10) - 1;
+    const month = months[monthIndex];
+    const day = parseInt(dateParts[2], 10);
+    return `${month} ${day}`;
+}
+
 function Dashboard() {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({
         clicks: 0,
         views: 0,
@@ -24,31 +46,30 @@ function Dashboard() {
         { name: "Total Clicks", stat: `${stats.clicks}` },
         {
             name: "Click Rate",
-            stat: stats.clickRate ? `${stats.clickRate}%` : `Not Calculated`,
+            stat: stats.clickRate ? `${stats.clickRate}%` : `N/A`,
         },
         { name: "Wallet", stat: `$${user?.balance?.toFixed(2) || ""}` },
     ];
-
+    const today: Date = new Date(); // Get today's date
+    const lastTwoWeeks = new Date(today.getTime() - 13 * 24 * 60 * 60 * 1000); // Subtract 14 days in milliseconds to get the date two weeks ago
+    const startDate = lastTwoWeeks.toISOString().split("T")[0]; // Convert date to ISO format and extract the date string
+    const endDate = today.toISOString().split("T")[0]; // Do the same for today's date
     const getUserStats = async () => {
         try {
-            const today = new Date(); // Get today's date
-            const lastTwoWeeks = new Date(
-                today.getTime() - 14 * 24 * 60 * 60 * 1000
-            ); // Subtract 14 days in milliseconds to get the date two weeks ago
-            const startDate = lastTwoWeeks.toISOString().split("T")[0]; // Convert date to ISO format and extract the date string
-            const endDate = today.toISOString().split("T")[0]; // Do the same for today's date
             const stats = await AnalyticsAPI.getUserStats(
                 token,
                 startDate,
                 endDate
             );
+            console.log(startDate);
 
-            console.log("staaaaaaaats", setStats(stats.data.data));
+            setStats(stats.data.data);
+            setLoading(false);
         } catch (err) {
             console.log(err);
         }
     };
-
+    console.log(stats);
     useEffect(() => {
         getUserStats();
     }, []);
@@ -72,44 +93,37 @@ function Dashboard() {
                 <div className="py-10">
                     <header>
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10">
-                            <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                            <h1 className="text-3xl font-bold leading-tight tracking-tight text-black bg-gray-50 text-center p-4 rounded-lg">
                                 Dashboard
                             </h1>
                         </div>
                     </header>
                     <main>
-                        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:flex-row">
                             <LastTwoWeeksStats stats={lastTwoWeeksStats} />
                             <br /> <br />
                             <div
+                                className="flex justify-around flex-col sm:flex-row mx-4 sm:mx-0 bg-gray-50 px-4 py-8 shadow "
                                 style={{
                                     display: "flex",
                                     justifyContent: "center",
-                                    gap: "10px",
+                                    gap: "20px",
                                 }}
                             >
-                                <div
-                                    style={{
-                                        width: "50%",
-                                    }}
-                                >
+                                <div className="sm:w-1/2 w-full">
                                     <ChartCard
                                         name="Views"
-                                        from="16 jan"
-                                        to="20 jan"
+                                        from={formatDateToLabel(startDate)}
+                                        to={formatDateToLabel(endDate)}
                                     >
                                         <ViewsLineChart />
                                     </ChartCard>
                                 </div>
-                                <div
-                                    style={{
-                                        width: "50%",
-                                    }}
-                                >
+                                <div className="sm:w-1/2 w-full sm:wrap">
                                     <ChartCard
                                         name="Clicks"
-                                        from="16 jan"
-                                        to="20 jan"
+                                        from={formatDateToLabel(startDate)}
+                                        to={formatDateToLabel(endDate)}
                                     >
                                         <ClicksLineChart />
                                     </ChartCard>

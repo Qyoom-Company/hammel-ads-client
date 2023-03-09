@@ -70,7 +70,7 @@ function ViewsLineChart() {
         try {
             const today = new Date(); // Get today's date
             const lastTwoWeeks = new Date(
-                today.getTime() - 14 * 24 * 60 * 60 * 1000
+                today.getTime() - 13 * 24 * 60 * 60 * 1000
             ); // Subtract 14 days in milliseconds to get the date two weeks ago
 
             const startDate = formatDate(lastTwoWeeks); // Convert date to ISO format and extract the date string
@@ -81,12 +81,6 @@ function ViewsLineChart() {
             const views = await AnalyticsAPI.getTotalAnalytics(
                 token,
                 "view",
-                startDate,
-                endDate
-            );
-            const clicks = await AnalyticsAPI.getTotalAnalytics(
-                token,
-                "click",
                 startDate,
                 endDate
             );
@@ -149,7 +143,7 @@ function ViewsLineChart() {
         },
     };
 
-    return <Line data={chartData} options={options} />;
+    return <Line data={chartData} options={options} className="w-full" />;
 }
 
 export default ViewsLineChart;

@@ -78,7 +78,7 @@ function formatForTable(data: Data) {
 export default function Analytics({}: AnalyticsProps) {
     const token = useSelector((state: any) => state.auth.token);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const oneMonthAgo = new Date().getTime() - 1000 * 60 * 60 * 24 * 30;
     const [fromDate, setFromDate] = useState<Date>(new Date(oneMonthAgo));
     const [toDate, setToDate] = useState<Date>(new Date());
@@ -121,6 +121,7 @@ export default function Analytics({}: AnalyticsProps) {
             );
 
             setData({ clicks: clicks.data.data, views: views.data.data });
+            setLoading(false);
         } catch (err) {
             console.log(err);
         }
