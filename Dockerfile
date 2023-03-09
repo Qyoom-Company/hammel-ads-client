@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # Create production build
-FROM nginx:1.19.10-alpine
+FROM nginx:1.23.3
 COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
