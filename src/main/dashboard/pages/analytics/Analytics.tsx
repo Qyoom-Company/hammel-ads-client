@@ -65,9 +65,7 @@ function formatForTable(data: Data) {
         object.date = formatDateToLabel(label);
         object.views = data.views.datasets[i];
         object.clicks = data.clicks.datasets[i];
-        if (object.views === 0) {
-            object.clickRate = "N/A";
-        } else {
+        if (object.views !== 0) {
             object.clickRate = (object.clicks / object.views) * 100;
         }
         dataArray.push(object);

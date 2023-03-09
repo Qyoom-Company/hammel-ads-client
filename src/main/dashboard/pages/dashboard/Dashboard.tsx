@@ -46,7 +46,7 @@ function Dashboard() {
         { name: "Total Clicks", stat: `${stats.clicks}` },
         {
             name: "Click Rate",
-            stat: stats.clickRate ? `${stats.clickRate}%` : `N/A`,
+            stat: stats.clickRate ? `${stats.clickRate}%` : `0%`,
         },
         { name: "Wallet", stat: `$${user?.balance?.toFixed(2) || ""}` },
     ];
@@ -91,19 +91,12 @@ function Dashboard() {
                 </div>
             ) : (
                 <div className="py-10">
-                    <header>
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10">
-                            <h1 className="text-3xl font-bold leading-tight tracking-tight text-black bg-gray-50 text-center p-4 rounded-lg">
-                                Dashboard
-                            </h1>
-                        </div>
-                    </header>
                     <main>
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:flex-row">
                             <LastTwoWeeksStats stats={lastTwoWeeksStats} />
                             <br /> <br />
                             <div
-                                className="flex justify-around flex-col sm:flex-row mx-4 sm:mx-0 bg-gray-50 px-4 py-8 shadow "
+                                className="flex justify-around flex-col sm:flex-row mx-4 sm:mx-0 bg-gray-50 px-6 py-12 "
                                 style={{
                                     display: "flex",
                                     justifyContent: "center",

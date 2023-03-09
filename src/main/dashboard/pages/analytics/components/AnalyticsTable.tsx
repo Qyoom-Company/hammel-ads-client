@@ -4,7 +4,7 @@ interface Data {
     date: string;
     views: number;
     clicks: number;
-    clickRate: number | string;
+    clickRate: number;
 }
 interface props {
     from: Date;
@@ -51,7 +51,7 @@ export default function AnalyticsTable({ from, to, data }: props) {
             (acc: number, val: any) => acc + val.clicks,
             0
         );
-        let clickRate: string | number = "N/A";
+        let clickRate: number = 0;
         if (views !== 0) clickRate = (clicks / views) * 100;
         setTotalData({
             date: "",
@@ -117,10 +117,7 @@ export default function AnalyticsTable({ from, to, data }: props) {
                                     {date.clicks}
                                 </td>
                                 <td className="py-4 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
-                                    {isNaN(Number(date.clickRate))
-                                        ? date.clickRate
-                                        : //@ts-ignore
-                                          date.clickRate.toFixed(2) + "%"}
+                                    {date.clickRate.toFixed(2) + "%"}
                                 </td>
                             </tr>
                         ))}
@@ -138,10 +135,7 @@ export default function AnalyticsTable({ from, to, data }: props) {
                                 {totalData.clicks}
                             </td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
-                                {isNaN(Number(totalData.clickRate))
-                                    ? totalData.clickRate
-                                    : //@ts-ignore
-                                      totalData.clickRate.toFixed(2) + "%"}
+                                {totalData.clickRate.toFixed(2) + "%"}
                             </td>
                         </tr>
                     </tbody>
