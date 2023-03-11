@@ -8,11 +8,15 @@ import InvalidInput from "../../../../components/alerts/InvalidInput";
 import UpdateSuccess from "../../shared/UpdateSuccess";
 import { saveUser } from "../../../../redux/user/userSlice";
 import SettingsAPI from "./api/index";
+import { text } from "stream/consumers";
+import { useTranslation } from "react-i18next";
 
 type SettingsProps = {};
 
 export default function Settings({}: SettingsProps) {
     const [loading, setLoading] = useState(true);
+    const { t, i18n } = useTranslation();
+    console.log(i18n.language, "language th");
 
     const [updateInfo, setUpdateInfo] = useState({
         firstName: "",
@@ -352,13 +356,13 @@ export default function Settings({}: SettingsProps) {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                                             >
-                                                Cancel
+                                                {t("cancel")}
                                             </button>
                                             <button
                                                 onClick={saveHandler}
                                                 className="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                                             >
-                                                Save
+                                                {t("save")}
                                             </button>
                                         </div>
                                     </div>

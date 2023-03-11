@@ -4,15 +4,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-const navigation = [
-    { name: "Dashboard", href: "/dashboard", current: false },
-    { name: "Analytics", href: "/dashboard/analytics", current: false },
-    { name: "Campaigns", href: "/dashboard/campaigns", current: false },
-    { name: "Wallet", href: "/dashboard/wallet", current: false },
-];
-
-const userNavigation = [{ name: "Settings" }, { name: "Sign out" }];
+import { useTranslation } from "react-i18next";
+import logo from "../../../images/logos/hammeladslogo.png";
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
@@ -24,9 +17,18 @@ interface NavBarProps {
 export default function NavBar({ index }: NavBarProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const token = useSelector((state: any) => state.auth.token);
     const user = useSelector((state: any) => state.user.user);
+
+    const navigation = [
+        { name: t("dashboard"), href: "/dashboard", current: false },
+        { name: t("analytics"), href: "/dashboard/analytics", current: false },
+        { name: t("campaigns"), href: "/dashboard/campaigns", current: false },
+        { name: t("wallet"), href: "/dashboard/wallet", current: false },
+    ];
+    const userNavigation = [{ name: t("settings") }, { name: t("logout") }];
 
     navigation.forEach((el) => (el.current = false));
     if (index < navigation.length && index >= 0)
@@ -57,18 +59,6 @@ export default function NavBar({ index }: NavBarProps) {
                             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                                 <div className="flex h-16 justify-between">
                                     <div className="flex">
-                                        <div className="flex flex-shrink-0 items-center">
-                                            <img
-                                                className="block h-8 w-auto lg:hidden"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                                alt="Your Company"
-                                            />
-                                            <img
-                                                className="hidden h-8 w-auto lg:block"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                                alt="Your Company"
-                                            />
-                                        </div>
                                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                                             {navigation.map((item) => (
                                                 <Link
@@ -143,7 +133,7 @@ export default function NavBar({ index }: NavBarProps) {
                                                                     "block px-4 py-2 text-sm text-gray-700"
                                                                 )}
                                                             >
-                                                                {"Settings"}
+                                                                {t("settings")}
                                                             </Link>
                                                         )}
                                                     </Menu.Item>
@@ -160,7 +150,7 @@ export default function NavBar({ index }: NavBarProps) {
                                                                     "block px-4 py-2 text-sm text-gray-700"
                                                                 )}
                                                             >
-                                                                {"Logout"}
+                                                                {t("logout")}
                                                             </a>
                                                         )}
                                                     </Menu.Item>

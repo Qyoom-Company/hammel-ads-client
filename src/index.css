@@ -5,3 +5,7 @@
 .preview {
     position: relative;
 }
+
+* {
+    font-family: "cairo", sans-serif;
+}
