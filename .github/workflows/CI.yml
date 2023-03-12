@@ -9,8 +9,8 @@ name: CI
 env:
   DEPLOYMENT_MANIFEST_BRANCH: main
   DEPLOYMENT_REPOSITORY: Qyoom-Company/hammel-ads-cicd
-  DEPLOYMENT_PATH: manifest/deployment.yaml
-  DEPLOYMENT_CONTAINER_INDEX: 1
+  DEPLOYMENT_PATH: manifest/client-deployment.yaml
+  DEPLOYMENT_CONTAINER_INDEX: 0
 
 
 on:
