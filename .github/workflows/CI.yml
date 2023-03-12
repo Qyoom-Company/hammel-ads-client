@@ -44,7 +44,7 @@ jobs:
     # https://github.com/actions/checkout
     - uses: actions/checkout@v2
       with:
-        repository: 'https://github.com/${{ env.DEPLOYMENT_REPOSITORY }}'
+        repository: '${{ env.DEPLOYMENT_REPOSITORY }}'
         ref: '${{ env.DEPLOYMENT_MANIFEST_BRANCH }}'
 
     - name: Update Image Version
