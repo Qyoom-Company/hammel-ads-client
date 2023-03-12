@@ -75,9 +75,10 @@ export default function AnalyticsTable({ from, to, data }: props) {
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                     <p className="mt-2 text-sm text-gray-700">
-                        Statistics from{" "}
-                        <time className="font-bold">{formatDate(from)}</time> to{" "}
-                        <time className="font-bold">{formatDate(to)}</time>.
+                        {t("statistics_from")}{" "}
+                        <time className="font-bold">{formatDate(from)}</time>{" "}
+                        {t("to")}{" "}
+                        <time className="font-bold">{formatDate(to)}</time>
                     </p>
                 </div>
             </div>
@@ -118,7 +119,7 @@ export default function AnalyticsTable({ from, to, data }: props) {
                             <tr key={i} className="border-b border-gray-200">
                                 <td className="py-4 pl-4 pr-3 text-sm sm:pl-0">
                                     <div className="font-normal text-gray-900">
-                                        {date.date}
+                                        {formatDate(new Date(date.date))}
                                     </div>
                                 </td>
                                 <td

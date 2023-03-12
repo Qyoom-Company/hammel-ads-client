@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import CampaignTableRow from "./CampaignTableRow";
 
 interface CampaignTableProps {
@@ -5,6 +6,9 @@ interface CampaignTableProps {
 }
 
 export default function CampaignsTable({ campaigns }: CampaignTableProps) {
+    const { t, i18n } = useTranslation();
+    const textDir = i18n.language === "ar" ? "right" : "left";
+
     return (
         <div className="mt-8 flex flex-col">
             <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -15,58 +19,58 @@ export default function CampaignsTable({ campaigns }: CampaignTableProps) {
                                 <tr>
                                     <th
                                         scope="col"
-                                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6   "
+                                        className={`py-3.5 pl-4 pr-3 text-${textDir} text-sm font-semibold text-gray-900 sm:pl-6 `}
                                     >
-                                        Campaign Title
+                                        {t("campaign_title")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Created At
+                                        {t("created_at")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Start Date
+                                        {t("start_date")}
                                     </th>
 
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        End Date
+                                        {t("end_date")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Budget
+                                        {t("budget")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Spent
+                                        {t("money_spent")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Clicks
+                                        {t("clicks")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Click Rate
+                                        {t("click_rate")}
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        className={`px-3 py-3.5 text-${textDir} text-sm font-semibold text-gray-900`}
                                     >
-                                        Status
+                                        {t("status")}
                                     </th>
 
                                     <th

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import InvalidInput from "../../../../components/alerts/InvalidInput";
@@ -28,7 +29,7 @@ function formatDate(date: string) {
 }
 function CreateCampaignPage({}: Props) {
     const navigate = useNavigate();
-
+    const { t, i18n } = useTranslation();
     const [errorMessage, setErrorMessage] = useState("");
 
     const token = useSelector((state: any) => state.auth.token);
@@ -157,16 +158,16 @@ function CreateCampaignPage({}: Props) {
                 <form
                     className="space-y-8 divide-y divide-gray-200 m-20"
                     onChange={() => setErrorMessage("")}
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
                 >
                     <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                         <div className="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
                             <div>
                                 <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                    Create a Campaign
+                                    {t("create_campaign")}
                                 </h3>
                                 <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                    you can create a campaign from here and save
-                                    it as draft or send it for review
+                                    {t("create_campaign_description")}
                                 </p>
                             </div>
                             <div className="space-y-6 sm:space-y-5">
@@ -175,7 +176,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="title"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        title
+                                        {t("campaign_title")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1">
@@ -201,7 +202,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="startDate"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
-                                        start date
+                                        {t("start_date")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -228,7 +229,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="endDate"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
-                                        end date
+                                        {t("end_date")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -255,7 +256,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="budget"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
-                                        Budget
+                                        {t("budget")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -279,7 +280,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="country"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        Country
+                                        {t("country")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -313,7 +314,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="cover-photo"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
-                                        Campaign Image
+                                        {t("campaign_image")}
                                     </label>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0 flex-col items-center justify-center">
                                         <div className="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 h-52 mt-10 ">
@@ -340,8 +341,8 @@ function CreateCampaignPage({}: Props) {
                                                         htmlFor="file-upload"
                                                         className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                                                     >
-                                                        <span>
-                                                            Upload a file
+                                                        <span className="px-1">
+                                                            {t("upload_image")}
                                                         </span>
                                                         <input
                                                             id="file-upload"
@@ -354,9 +355,6 @@ function CreateCampaignPage({}: Props) {
                                                             }
                                                         />
                                                     </label>
-                                                    <p className="pl-1">
-                                                        or drag and drop
-                                                    </p>
                                                 </div>
                                                 <p className="text-xs text-gray-500">
                                                     2090*1284 PNG, JPG, JPEG up
@@ -375,7 +373,7 @@ function CreateCampaignPage({}: Props) {
                                         htmlFor="link"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                                     >
-                                        link
+                                        {t("campaign_link")}
                                     </label>
                                     <br></br>
                                     <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -408,17 +406,17 @@ function CreateCampaignPage({}: Props) {
                                     saveHandler("draft");
                                 }}
                             >
-                                Save Draft
+                                {t("save_draft")}
                             </button>
                             <button
                                 type="button"
-                                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="mx-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     saveHandler("in review");
                                 }}
                             >
-                                To Review
+                                {t("to_review")}
                             </button>
                         </div>
                     </div>
@@ -436,3 +434,14 @@ function CreateCampaignPage({}: Props) {
 }
 
 export default CreateCampaignPage;
+
+/*
+
+
+loads{
+    id
+    date
+    status: [served, pending, unvalid]
+}
+
+*/

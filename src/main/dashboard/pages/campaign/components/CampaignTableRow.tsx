@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 interface CampaignsTableRowProps {
@@ -50,6 +51,8 @@ function statusStyles(status: string): string {
 }
 
 export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
+    const { t, i18n } = useTranslation();
+
     return (
         <tr key={campaign.email}>
             {/* // title */}
@@ -93,7 +96,7 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                 {campaign.clickRate !== null
                     ? formatAmount(campaign.clickRate)
-                    : "not calculated"}
+                    : "0.00"}
             </td>
 
             {/* // status */}
@@ -104,7 +107,7 @@ export default function CampaignTableRow({ campaign }: CampaignsTableRowProps) {
                         campaign.status
                     )} `}
                 >
-                    {campaign.status.toUpperCase()}
+                    {t(campaign.status)}
                 </span>
             </td>
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

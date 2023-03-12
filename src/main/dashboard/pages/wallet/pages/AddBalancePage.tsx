@@ -486,7 +486,9 @@ const AddBalancePage = () => {
 
                                 <dl className="space-y-6 border-t border-gray-200 py-6 px-4 sm:px-6">
                                     <div className="flex items-center justify-between">
-                                        <dt className="text-sm">Subtotal</dt>
+                                        <dt className="text-sm">
+                                            {t("subtotal")}
+                                        </dt>
                                         <dd className="text-sm font-medium text-gray-900">
                                             ${amountInfo.amount}
                                         </dd>

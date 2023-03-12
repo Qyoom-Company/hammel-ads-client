@@ -49,7 +49,7 @@ export default function NavBar({ index }: NavBarProps) {
 
     return (
         <>
-            <div className="min-h-full sticky top-0 z-50 opacity-95">
+            <div className="min-h-full sticky top-0 z-50 opacity-95 ">
                 <Disclosure
                     as="nav"
                     className="border-b border-gray-200 bg-white"
