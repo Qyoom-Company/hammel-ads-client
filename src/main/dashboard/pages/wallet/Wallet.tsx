@@ -43,7 +43,7 @@ export default function Wallet({}: WalletProps) {
 
     useEffect(() => {
         getMethods();
-    }, []);
+    }, [paymentMethods]);
 
     return (
         <>
