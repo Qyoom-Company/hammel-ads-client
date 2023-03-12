@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import CampaignsAPI from "../../campaign/api";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     fromDate: Date;
@@ -41,6 +42,8 @@ const Header: React.FC<Props> = ({
     setCountryFilter,
 }) => {
     const token = useSelector((state: any) => state.auth.token);
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
 
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [countryList, setCountryList] = useState<String[]>([]);
@@ -90,7 +93,7 @@ const Header: React.FC<Props> = ({
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-around flex-col sm:flex-row ">
                 <div className=" lg:w-1/3 mb-4 lg:mb-0 mx-4">
                     <span className="text-sm font-medium leading-6 text-gray-500">
-                        Filter by Date:
+                        {t("filter_by_date")}
                     </span>
                     <div className="flex mt-2">
                         <div className="mr-2">
@@ -103,8 +106,8 @@ const Header: React.FC<Props> = ({
                                 className="border-gray-100 relative w-52 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
-                        <h3 className="mr-2 mt-2 align-center text-sm font-medium leading-6 text-gray-400">
-                            to
+                        <h3 className="mx-2 mt-2 align-center text-sm font-medium leading-6 text-gray-400">
+                            {t("to")}
                         </h3>
                         <div>
                             <DatePicker
@@ -124,7 +127,7 @@ const Header: React.FC<Props> = ({
                     {({ open }) => (
                         <div className="ml-5">
                             <Listbox.Label className="text-sm font-medium leading-6 text-gray-500">
-                                Filter By Name:
+                                {t("filter_by_name")}
                             </Listbox.Label>
 
                             <div className="relative mt-2">
@@ -249,7 +252,7 @@ const Header: React.FC<Props> = ({
                     {({ open }) => (
                         <div className="ml-5">
                             <Listbox.Label className="text-sm font-medium leading-6 text-gray-500">
-                                Filter By Country:
+                                {t("filter_by_country")}
                             </Listbox.Label>
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-52 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">

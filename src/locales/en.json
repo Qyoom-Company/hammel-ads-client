@@ -22,6 +22,17 @@
     "views": "Views",
     "account_balance": "Account Balance",
     "your_payment_methods": "Your Payment Methods",
+    "new_payment_method": "New Payment Method",
     "no_payment_methods": "you don't have any payment methods yet",
-    "add_balance": "Add Balance"
+    "add_balance": "Add Balance",
+    "date": "Date",
+    "the_total": "Total",
+    "filter_by_date": "Filter by Date",
+    "filter_by_name": "Filter by Name",
+    "filter_by_country": "Filter by Country",
+    "to": "to",
+    "amount": "Amount",
+    "sammary": "Sammary",
+    "fees": "Fees",
+    "confirm": "Confirm"
 }

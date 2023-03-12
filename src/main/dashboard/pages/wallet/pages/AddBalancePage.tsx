@@ -6,6 +6,7 @@ import LoadingSpinner from "../../../../../utils/LoadingSpinner";
 import UpdateSuccess from "../../../shared/UpdateSuccess";
 import { useNavigate } from "react-router-dom";
 import InvalidInput from "../../../../../components/alerts/InvalidInput";
+import { useTranslation } from "react-i18next";
 const paymentOptions = [
     { id: "credit-card", title: "Mastercard/Visa" },
     { id: "paypal", title: "PayPal" },
@@ -15,7 +16,7 @@ const paymentOptions = [
 const AddBalancePage = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-
+    const { t, i18n } = useTranslation();
     const [showSuccessStatus, setShowSuccessStatus] = useState(true);
     const [showErrorStatus, setShowErrorStatus] = useState(false);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
@@ -135,13 +136,16 @@ const AddBalancePage = () => {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <div className="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                <div
+                    className="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8"
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                >
                     <div className="m-4">
                         <label
                             htmlFor="email-address"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Amount
+                            {t("amount")}
                         </label>
                         <div className="mt-1">
                             <input
@@ -169,12 +173,12 @@ const AddBalancePage = () => {
                     <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                         <div>
                             <div className="mt-10 border-t border-gray-200 pt-10">
-                                <h1>your payment methods</h1>
+                                <h1>{t("your_payment_methods")}</h1>
                                 <br></br>
 
                                 <h4>
                                     {paymentMethods.length === 0 &&
-                                        "you don't have any payment methods yet"}
+                                        t("no_payment_methods")}
                                 </h4>
                                 <ul>
                                     {paymentMethods.map(
@@ -222,7 +226,7 @@ const AddBalancePage = () => {
                                 }}
                             >
                                 <h2 className="text-lg font-medium text-gray-900">
-                                    New Payment Method
+                                    {t("new_payment_method")}
                                 </h2>
 
                                 <fieldset className="mt-4">
@@ -474,7 +478,7 @@ const AddBalancePage = () => {
                         {/* Order summary */}
                         <div className="mt-10 lg:mt-0">
                             <h2 className="text-lg font-medium text-gray-900">
-                                summary
+                                {t("summary")}
                             </h2>
 
                             <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
@@ -488,14 +492,14 @@ const AddBalancePage = () => {
                                         </dd>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <dt className="text-sm">fees</dt>
+                                        <dt className="text-sm">{t("fees")}</dt>
                                         <dd className="text-sm font-medium text-gray-900">
                                             ${amountInfo.fees}
                                         </dd>
                                     </div>
                                     <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                                         <dt className="text-base font-medium">
-                                            Total
+                                            {t("the_total")}
                                         </dt>
                                         <dd className="text-base font-medium text-gray-900">
                                             ${amountInfo.total}
@@ -513,7 +517,7 @@ const AddBalancePage = () => {
                                                 : "bg-indigo-600 hover:bg-indigo-700"
                                         } py-3 px-4 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50`}
                                     >
-                                        Confirm
+                                        {t("confirm")}
                                     </button>
                                 </div>
                             </div>

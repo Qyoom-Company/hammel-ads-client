@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Data {
     date: string;
@@ -35,6 +36,9 @@ function formatDate(date: Date) {
 }
 
 export default function AnalyticsTable({ from, to, data }: props) {
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
+
     const [totalData, setTotalData] = useState<Data>({
         date: "",
         views: 0,
@@ -61,8 +65,13 @@ export default function AnalyticsTable({ from, to, data }: props) {
         });
     }, [data]);
 
+    const textDir = language === "ar" ? "left" : "right";
+
     return (
-        <div className="px-4 sm:px-6 lg:px-8">
+        <div
+            className="px-4 sm:px-6 lg:px-8"
+            dir={language === "ar" ? "rtl" : "ltr"}
+        >
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                     <p className="mt-2 text-sm text-gray-700">
@@ -78,27 +87,29 @@ export default function AnalyticsTable({ from, to, data }: props) {
                         <tr>
                             <th
                                 scope="col"
-                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                                className={`py-3.5 pl-4 pr-3 text-${
+                                    language === "ar" ? "right" : "left"
+                                } text-sm font-semibold text-gray-900 sm:pl-0`}
                             >
-                                Date
+                                {t("date")}
                             </th>
                             <th
                                 scope="col"
-                                className="hidden py-3.5 px-3 text-right text-sm font-semibold text-gray-900 sm:table-cell"
+                                className={`hidden py-3.5 px-3 text-${textDir} text-sm font-semibold text-gray-900 sm:table-cell`}
                             >
-                                Views
+                                {t("views")}
                             </th>
                             <th
                                 scope="col"
-                                className="hidden py-3.5 px-3 text-right text-sm font-semibold text-gray-900 sm:table-cell"
+                                className={`hidden py-3.5 px-3 text-${textDir} text-sm font-semibold text-gray-900 sm:table-cell`}
                             >
-                                Clicks
+                                {t("clicks")}
                             </th>
                             <th
                                 scope="col"
-                                className="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0"
+                                className={`py-3.5 pl-3 pr-4 text-${textDir} text-sm font-semibold text-gray-900 sm:pr-0`}
                             >
-                                Click Rate
+                                {t("click_rate")}
                             </th>
                         </tr>
                     </thead>
@@ -110,13 +121,19 @@ export default function AnalyticsTable({ from, to, data }: props) {
                                         {date.date}
                                     </div>
                                 </td>
-                                <td className="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell">
+                                <td
+                                    className={`hidden py-4 px-3 text-${textDir} text-sm text-gray-500 sm:table-cell`}
+                                >
                                     {date.views}
                                 </td>
-                                <td className="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell">
+                                <td
+                                    className={`hidden py-4 px-3 text-${textDir} text-sm text-gray-500 sm:table-cell`}
+                                >
                                     {date.clicks}
                                 </td>
-                                <td className="py-4 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
+                                <td
+                                    className={`py-4 pl-3 pr-4 text-${textDir} text-sm text-gray-500 sm:pr-0`}
+                                >
                                     {date.clickRate.toFixed(2) + "%"}
                                 </td>
                             </tr>
@@ -124,17 +141,23 @@ export default function AnalyticsTable({ from, to, data }: props) {
 
                         <tr className="border-b border-gray-200">
                             <td className="py-4 pl-4 pr-3 text-sm sm:pl-0">
-                                <div className="hidden pl-4 pr-3 pt-4 text-right text-sm font-bold text-gray-900 sm:table-cell sm:pl-0">
-                                    Total
+                                <div className="hidden pl-4 pr-3 text-right text-sm font-bold text-gray-900 sm:table-cell sm:pl-0">
+                                    {t("the_total")}
                                 </div>
                             </td>
-                            <td className="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell">
+                            <td
+                                className={`hidden py-4 px-3 text-${textDir} text-sm text-gray-500 sm:table-cell`}
+                            >
                                 {totalData.views}
                             </td>
-                            <td className="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell">
+                            <td
+                                className={`hidden py-4 px-3 text-${textDir} text-sm text-gray-500 sm:table-cell`}
+                            >
                                 {totalData.clicks}
                             </td>
-                            <td className="py-4 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
+                            <td
+                                className={`py-4 pl-3 pr-4 text-${textDir} text-sm text-gray-500 sm:pr-0`}
+                            >
                                 {totalData.clickRate.toFixed(2) + "%"}
                             </td>
                         </tr>

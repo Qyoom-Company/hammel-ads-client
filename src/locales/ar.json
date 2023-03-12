@@ -22,6 +22,18 @@
     "views": "المشاهدات",
     "account_balance": "رصيد الحساب",
     "your_payment_methods": "طرق الدفع",
+    "new_payment_method": "طريقة دفع جديدة",
     "no_payment_methods": "ليس لديك أي وسائل دفع حتى الآن.",
-    "add_balance": "إضافة رصيد"
+    "add_balance": "إضافة رصيد",
+    "date": "التاريخ",
+    "the_total": "المجموع",
+    "filter_by_date": "التصفية حسب التاريخ",
+    "filter_by_name": "اسم الحملة",
+    "filter_by_country": "الدولة",
+    "to": "إلى",
+    "amount": "المبلغ",
+    "summary": "الملخص",
+    "fees": "الرسوم",
+    "confirm": "تأكيد",
+    "subtotal": "Subtotal"
 }
