@@ -1,6 +1,7 @@
 name: CI
 
 # Must add secrets
+# - ACCESS_TOKEN
 # - DOCKER_USERNAME
 # - DOCKER_PASSWORD
 # - DOCKER_REGISTRY
@@ -44,6 +45,7 @@ jobs:
     # https://github.com/actions/checkout
     - uses: actions/checkout@v2
       with:
+        token: ${{ secrets.ACCESS_TOKEN }}
         repository: '${{ env.DEPLOYMENT_REPOSITORY }}'
         ref: '${{ env.DEPLOYMENT_MANIFEST_BRANCH }}'
 
