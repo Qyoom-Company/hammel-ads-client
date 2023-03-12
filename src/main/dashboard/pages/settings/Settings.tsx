@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import NavBar from "../../shared/NavBar";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
@@ -13,21 +15,31 @@ import { useTranslation } from "react-i18next";
 
 type SettingsProps = {};
 
+const languages = [
+    { id: 1, name: "العربية", value: "ar" },
+    { id: 2, name: "English", value: "en" },
+];
+
+function classNames(...classes: any) {
+    return classes.filter(Boolean).join(" ");
+}
+
 export default function Settings({}: SettingsProps) {
     const [loading, setLoading] = useState(true);
     const { t, i18n } = useTranslation();
-    console.log(i18n.language, "language th");
+    const language = i18n.language;
+    const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
     const [updateInfo, setUpdateInfo] = useState({
         firstName: "",
         lastName: "",
         phoneNumber: "",
     });
+
     const [errorMessage, setErrorMessage] = useState("");
     const [successContent, setSuccessContent] = useState("");
     const [showSuccessUpdate, setShowSuccessUpdate] = useState(true);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector((state: any) => state.auth.token);
     const user = useSelector((state: any) => state.user.user);
@@ -67,6 +79,10 @@ export default function Settings({}: SettingsProps) {
             lastName: user.lastName,
             phoneNumber: user.phoneNumber,
         });
+        setSelectedLanguage(
+            languages.find((l: any) => l.value === user.preferredLanguage) ||
+                languages[0]
+        );
     }, [user]);
     const saveHandler = async (e: any) => {
         e.preventDefault();
@@ -91,10 +107,20 @@ export default function Settings({}: SettingsProps) {
 
         setLoading(true);
         try {
-            const response = await SettingsAPI.updateProfile(updateInfo, token);
+            const response = await SettingsAPI.updateProfile(
+                { ...updateInfo, preferredLanguage: selectedLanguage.value },
+                token
+            );
 
             console.log(response);
-            dispatch(saveUser({ ...user, ...updateInfo }));
+            dispatch(
+                saveUser({
+                    ...user,
+                    ...updateInfo,
+                    preferredLanguage: selectedLanguage.value,
+                })
+            );
+            i18n.changeLanguage(selectedLanguage.value);
             setSuccessContent("updated");
             setShowSuccessUpdate(true);
             setLoading(false);
@@ -135,7 +161,8 @@ export default function Settings({}: SettingsProps) {
                                 </div>
                             ) : (
                                 <form
-                                    className="divide-y divide-gray-200 lg:col-span-9"
+                                    dir={language === "ar" ? "rtl" : "ltr"}
+                                    className="divide-y divide-gray-200 lg:col-span-9 rtl"
                                     action="#"
                                     method="POST"
                                     onChange={() => {
@@ -150,7 +177,7 @@ export default function Settings({}: SettingsProps) {
                                                     className="text-sm font-medium text-gray-700"
                                                     aria-hidden="true"
                                                 >
-                                                    Photo
+                                                    {t("photo")}
                                                 </p>
                                                 <div className="mt-1 lg:hidden">
                                                     <div className="flex items-center">
@@ -254,7 +281,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="first-name"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    First Name
+                                                    {t("first_name")}
                                                 </label>
                                                 <input
                                                     type="text"
@@ -278,7 +305,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="last-name"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    Last Name
+                                                    {t("last_name")}
                                                 </label>
                                                 <input
                                                     type="text"
@@ -302,7 +329,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="url"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    Email
+                                                    {t("email")}
                                                 </label>
                                                 <input
                                                     type="text"
@@ -326,7 +353,7 @@ export default function Settings({}: SettingsProps) {
                                                     htmlFor="phoneNumber"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    Phone Number
+                                                    {t("phone_number")}
                                                 </label>
                                                 <input
                                                     type="text"
@@ -346,6 +373,113 @@ export default function Settings({}: SettingsProps) {
                                                     }}
                                                 />
                                             </div>
+                                            <div className="col-span-12 sm:col-span-6">
+                                                <label
+                                                    htmlFor="language"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    {t("language")}
+                                                </label>
+                                                <Listbox
+                                                    value={selectedLanguage}
+                                                    onChange={
+                                                        setSelectedLanguage
+                                                    }
+                                                >
+                                                    {({ open }) => (
+                                                        <>
+                                                            <div className="relative mt-2 w-24">
+                                                                <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                                    <span className="block truncate">
+                                                                        {
+                                                                            selectedLanguage.name
+                                                                        }
+                                                                    </span>
+                                                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                                        <ChevronUpDownIcon
+                                                                            className="h-5 w-5 text-gray-400"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </span>
+                                                                </Listbox.Button>
+
+                                                                <Transition
+                                                                    show={open}
+                                                                    as={
+                                                                        Fragment
+                                                                    }
+                                                                    leave="transition ease-in duration-100"
+                                                                    leaveFrom="opacity-100"
+                                                                    leaveTo="opacity-0"
+                                                                >
+                                                                    <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                                        {languages.map(
+                                                                            (
+                                                                                language
+                                                                            ) => (
+                                                                                <Listbox.Option
+                                                                                    key={
+                                                                                        language.id
+                                                                                    }
+                                                                                    className={({
+                                                                                        active,
+                                                                                    }) =>
+                                                                                        classNames(
+                                                                                            active
+                                                                                                ? "bg-indigo-600 text-white"
+                                                                                                : "text-gray-900",
+                                                                                            "relative cursor-default select-none py-2 pl-3 pr-9"
+                                                                                        )
+                                                                                    }
+                                                                                    value={
+                                                                                        language
+                                                                                    }
+                                                                                >
+                                                                                    {({
+                                                                                        selected,
+                                                                                        active,
+                                                                                    }) => (
+                                                                                        <>
+                                                                                            <span
+                                                                                                className={classNames(
+                                                                                                    selected
+                                                                                                        ? "font-semibold"
+                                                                                                        : "font-normal",
+                                                                                                    "block truncate"
+                                                                                                )}
+                                                                                            >
+                                                                                                {
+                                                                                                    language.name
+                                                                                                }
+                                                                                            </span>
+
+                                                                                            {selected ? (
+                                                                                                <span
+                                                                                                    className={classNames(
+                                                                                                        active
+                                                                                                            ? "text-white"
+                                                                                                            : "text-indigo-600",
+                                                                                                        "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                                                                    )}
+                                                                                                >
+                                                                                                    <CheckIcon
+                                                                                                        className="h-5 w-5"
+                                                                                                        aria-hidden="true"
+                                                                                                    />
+                                                                                                </span>
+                                                                                            ) : null}
+                                                                                        </>
+                                                                                    )}
+                                                                                </Listbox.Option>
+                                                                            )
+                                                                        )}
+                                                                    </Listbox.Options>
+                                                                </Transition>
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </Listbox>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -360,7 +494,7 @@ export default function Settings({}: SettingsProps) {
                                             </button>
                                             <button
                                                 onClick={saveHandler}
-                                                className="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                                                className="mx-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                                             >
                                                 {t("save")}
                                             </button>

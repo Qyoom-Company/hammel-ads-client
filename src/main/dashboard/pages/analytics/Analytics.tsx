@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import AnalyticsAPI from "../../shared/AnalyticsAPI";
@@ -75,7 +76,9 @@ function formatForTable(data: Data) {
 
 export default function Analytics({}: AnalyticsProps) {
     const token = useSelector((state: any) => state.auth.token);
+    const { t, i18n } = useTranslation();
 
+    const language = i18n.language;
     const [loading, setLoading] = useState(true);
     const oneMonthAgo = new Date().getTime() - 1000 * 60 * 60 * 24 * 30;
     const [fromDate, setFromDate] = useState<Date>(new Date(oneMonthAgo));
@@ -145,7 +148,7 @@ export default function Analytics({}: AnalyticsProps) {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <>
+                <div dir={language === "ar" ? "rtl" : "ltr"}>
                     <FilterComponent
                         fromDate={fromDate}
                         setFromDate={setFromDate}
@@ -159,7 +162,7 @@ export default function Analytics({}: AnalyticsProps) {
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-around flex-col sm:flex-row gap-5 bg-gray-50 ">
                         <div className="sm:w-1/2">
                             <ChartCard
-                                name="Views"
+                                name={t("views")}
                                 from={formatDate(fromDate)}
                                 to={formatDate(toDate)}
                             >
@@ -168,7 +171,7 @@ export default function Analytics({}: AnalyticsProps) {
                         </div>
                         <div className="sm:w-1/2">
                             <ChartCard
-                                name="Clicks"
+                                name={t("clicks")}
                                 from={formatDate(fromDate)}
                                 to={formatDate(toDate)}
                             >
@@ -183,7 +186,7 @@ export default function Analytics({}: AnalyticsProps) {
                             data={formatForTable(data)}
                         />
                     </div>
-                </>
+                </div>
             )}
         </>
     );

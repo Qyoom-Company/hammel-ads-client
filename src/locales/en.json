@@ -6,5 +6,22 @@
     "settings": "Settings",
     "logout": "Log Out",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "photo": "Photo",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "full_name": "Full Name",
+    "email": "Email Address",
+    "phone_number": "Phone Number",
+    "language": "Language",
+    "last_14_days": "Last 14 Days",
+    "total_views": "Total Views",
+    "total_clicks": "Total Clicks",
+    "click_rate": "Click Rate",
+    "clicks": "Clicks",
+    "views": "Views",
+    "account_balance": "Account Balance",
+    "your_payment_methods": "Your Payment Methods",
+    "no_payment_methods": "you don't have any payment methods yet",
+    "add_balance": "Add Balance"
 }

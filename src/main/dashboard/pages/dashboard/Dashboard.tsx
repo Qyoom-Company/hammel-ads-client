@@ -7,6 +7,7 @@ import ViewsLineChart from "./components/ViewsLineChart";
 import LastTwoWeeksStats from "./components/LastTwoWeeksStats";
 import ClicksLineChart from "./components/ClicksLineChart";
 import ChartCard from "../../shared/ChartCard";
+import { useTranslation } from "react-i18next";
 
 function formatDateToLabel(dateString: string): string {
     const months = [
@@ -32,6 +33,10 @@ function formatDateToLabel(dateString: string): string {
 
 function Dashboard() {
     const [loading, setLoading] = useState(true);
+    const { t, i18n } = useTranslation();
+
+    const language = i18n.language;
+
     const [stats, setStats] = useState({
         clicks: 0,
         views: 0,
@@ -42,14 +47,15 @@ function Dashboard() {
     const token = useSelector((state: any) => state.auth.token);
 
     const lastTwoWeeksStats = [
-        { name: "Total Views", stat: `${stats.views}` },
-        { name: "Total Clicks", stat: `${stats.clicks}` },
+        { name: t("total_views"), stat: `${stats.views}` },
+        { name: t("total_clicks"), stat: `${stats.clicks}` },
         {
-            name: "Click Rate",
+            name: t("click_rate"),
             stat: stats.clickRate ? `${stats.clickRate}%` : `0%`,
         },
-        { name: "Wallet", stat: `$${user?.balance?.toFixed(2) || ""}` },
+        { name: t("wallet"), stat: `$${user?.balance?.toFixed(2) || ""}` },
     ];
+
     const today: Date = new Date(); // Get today's date
     const lastTwoWeeks = new Date(today.getTime() - 13 * 24 * 60 * 60 * 1000); // Subtract 14 days in milliseconds to get the date two weeks ago
     const startDate = lastTwoWeeks.toISOString().split("T")[0]; // Convert date to ISO format and extract the date string
@@ -90,7 +96,7 @@ function Dashboard() {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <div className="py-10">
+                <div className="py-10" dir={language === "ar" ? "rtl" : "ltr"}>
                     <main>
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:flex-row">
                             <LastTwoWeeksStats stats={lastTwoWeeksStats} />
@@ -105,7 +111,7 @@ function Dashboard() {
                             >
                                 <div className="sm:w-1/2 w-full">
                                     <ChartCard
-                                        name="Views"
+                                        name={t("views")}
                                         from={formatDateToLabel(startDate)}
                                         to={formatDateToLabel(endDate)}
                                     >
@@ -114,7 +120,7 @@ function Dashboard() {
                                 </div>
                                 <div className="sm:w-1/2 w-full sm:wrap">
                                     <ChartCard
-                                        name="Clicks"
+                                        name={t("clicks")}
                                         from={formatDateToLabel(startDate)}
                                         to={formatDateToLabel(endDate)}
                                     >

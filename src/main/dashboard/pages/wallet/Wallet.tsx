@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
 import WalletAPI from "./api";
 import AddBalanceButton from "./components/AddBalanceButton";
 import BalanceInfoTable from "./components/BalanceInfoTable";
+import { PlusIcon } from "@heroicons/react/20/solid";
+import { useNavigate } from "react-router-dom";
 type WalletProps = {};
 
 export default function Wallet({}: WalletProps) {
     const [loading, setLoading] = useState(false);
     const [paymentMethods, setPaymentMethods] = useState([]);
     const token = useSelector((state: any) => state.auth.token);
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
+    const navigate = useNavigate();
 
     const getMethods = async () => {
         try {
@@ -43,7 +49,7 @@ export default function Wallet({}: WalletProps) {
         <>
             <NavBar index={3} />
 
-            <div className="py-10">
+            <div className="py-10" dir={language === "ar" ? "rtl" : "ltr"}>
                 <main>
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {loading ? (
@@ -64,13 +70,13 @@ export default function Wallet({}: WalletProps) {
                                 <br></br>
                                 <div className="ml-4">
                                     <div className="mt-10 border-t border-gray-200 pt-10">
-                                        <h1>your payment methods</h1>
+                                        <h1>{t("your_payment_methods")}</h1>
                                         <br></br>
 
-                                        <h4>
+                                        <h5 className="text-gray-400">
                                             {paymentMethods.length === 0 &&
-                                                "you don't have any payment methods yet"}
-                                        </h4>
+                                                t("no_payment_methods")}
+                                        </h5>
                                         <ul className="flex gap-1">
                                             {paymentMethods.map(
                                                 (paymentMethod: any) => (
@@ -172,7 +178,21 @@ export default function Wallet({}: WalletProps) {
                                         </ul>
                                     </div>
                                     <br></br>
-                                    <AddBalanceButton />
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            navigate(
+                                                "/dashboard/wallet/addbalance"
+                                            )
+                                        }
+                                        className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    >
+                                        <PlusIcon
+                                            className="mx-1 mr-2 h-5 w-5"
+                                            aria-hidden="true"
+                                        />
+                                        {t("add_balance")}
+                                    </button>
                                 </div>
                             </div>
                         )}

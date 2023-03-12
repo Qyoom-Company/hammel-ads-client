@@ -6,5 +6,22 @@
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
     "cancel": "إلغاء",
-    "save": "حفظ"
+    "save": "حفظ",
+    "photo": "الصورة",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "full_name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone_number": "رقم الهاتف",
+    "language": "اللغة",
+    "last_14_days": "آخر 14 يومًا",
+    "total_views": "مجموع المشاهدات",
+    "total_clicks": "مجموع النقرات",
+    "click_rate": "نسبة النقر إلى الظهور",
+    "clicks": "النقرات",
+    "views": "المشاهدات",
+    "account_balance": "رصيد الحساب",
+    "your_payment_methods": "طرق الدفع",
+    "no_payment_methods": "ليس لديك أي وسائل دفع حتى الآن.",
+    "add_balance": "إضافة رصيد"
 }

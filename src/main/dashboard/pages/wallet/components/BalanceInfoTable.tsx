@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 type Props = {};
 
 const BalanceInfoTable = (props: Props) => {
     const user = useSelector((state: any) => state.user.user);
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
     useEffect(() => {
         if (!user) return;
     }, [user]);
@@ -14,7 +17,7 @@ const BalanceInfoTable = (props: Props) => {
             <dl className="sm:divide-y sm:divide-gray-200">
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">
-                        Full name
+                        {t("full_name")}
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                         {`${user?.firstName} ${user?.lastName}`}
@@ -22,7 +25,7 @@ const BalanceInfoTable = (props: Props) => {
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">
-                        Email address
+                        {t("email")}
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                         {user?.email}
@@ -30,7 +33,7 @@ const BalanceInfoTable = (props: Props) => {
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">
-                        Account Balance
+                        {t("account_balance")}
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                         ${user?.balance?.toFixed(2)}
