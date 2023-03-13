@@ -61,7 +61,7 @@ export default function RegisterPage({ lg }: RegisterPageProps) {
     /// handler -------------------
 
     const validPassword = new RegExp(
-        "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
+        "(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
     );
 
     const signUpHandler = (e: any) => {
@@ -88,7 +88,7 @@ export default function RegisterPage({ lg }: RegisterPageProps) {
 
         if (!validPassword.test(userData.password)) {
             return setErrorMessage(
-                "password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and is at least eight characters long. "
+                "password must be at least eight characters long and contain numbers"
             );
         }
 
