@@ -41,13 +41,13 @@ const ResetPassword = (props: Props) => {
 
     // handler
     const validPassword = new RegExp(
-        "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
+        "(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
     );
     const newPasswordHandler = async (e: any) => {
         e.preventDefault();
         if (!validPassword.test(newPassword.password))
             return setErrorMessage(
-                "password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and is at least eight characters long. "
+                "password must be at least eight characters long and contain numbers"
             );
 
         if (newPassword.password !== newPassword.passwordConfirm) {
