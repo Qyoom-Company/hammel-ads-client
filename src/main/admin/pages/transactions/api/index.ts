@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const mainRoute = "http://localhost:3500";
-
 const TransactionsAPI = {
     increaseBalance: function (
         userEmail: string,
@@ -9,7 +7,7 @@ const TransactionsAPI = {
         token: string
     ) {
         return axios.post(
-            `${mainRoute}/api/payments/increase-balance`,
+            `${process.env.REACT_APP_API_URL}/payments/increase-balance`,
             { userEmail: userEmail, amount: amount },
             {
                 headers: {

@@ -1,11 +1,9 @@
 import axios from "axios";
 
-const mainRoute = "http://localhost:3500";
-
 const AnalyticsAPI = {
     getUserStats: function (token: string, from: string, to: string) {
         return axios.post(
-            `${mainRoute}/api/analytics/user-stats`,
+            `${process.env.REACT_APP_API_URL}/analytics/user-stats`,
             {
                 from,
                 to,
@@ -31,7 +29,7 @@ const AnalyticsAPI = {
             "htis -<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
         );
         return axios.post(
-            `${mainRoute}/api/analytics/user-analytics`,
+            `${process.env.REACT_APP_API_URL}/analytics/user-analytics`,
             {
                 type,
                 from,

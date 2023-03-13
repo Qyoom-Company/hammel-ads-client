@@ -2,11 +2,14 @@ import axios from "axios";
 
 const WalletAPI = {
     getAllPaymentMethods: function (token: string) {
-        return axios.get("http://localhost:3500/api/payments/paymentmethods", {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        });
+        return axios.get(
+            `${process.env.REACT_APP_API_URL}/payments/paymentmethods`,
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }
+        );
     },
     executePaymentUsingCard: function (
         token: string,
@@ -14,7 +17,7 @@ const WalletAPI = {
         amount: number
     ) {
         return axios.post(
-            "http://localhost:3500/api/payments/newdirectpayment",
+            `${process.env.REACT_APP_API_URL}/payments/newdirectpayment`,
             {
                 cardDetails,
                 amount,
@@ -32,7 +35,7 @@ const WalletAPI = {
         amount: number
     ) {
         return axios.post(
-            "http://localhost:3500/api/payments/directpayment",
+            `${process.env.REACT_APP_API_URL}/payments/directpayment`,
             {
                 token: paymentToken,
                 amount,
@@ -46,7 +49,7 @@ const WalletAPI = {
     },
     removePaymentMethod: function (token: string, cardToken: string) {
         return axios.delete(
-            "http://localhost:3500/api/payments/paymentmethods",
+            `${process.env.REACT_APP_API_URL}/payments/paymentmethods`,
             {
                 headers: {
                     authorization: `Bearer ${token}`,

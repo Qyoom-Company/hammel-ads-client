@@ -34,6 +34,7 @@ function formatDateToLabel(dateString: string): string {
 function Dashboard() {
     const [loading, setLoading] = useState(true);
     const { t, i18n } = useTranslation();
+    console.log("env", process.env.REACT_APP_API_URL);
 
     const language = i18n.language;
 

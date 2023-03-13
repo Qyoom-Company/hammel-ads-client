@@ -26,7 +26,7 @@ const ResetPassword = (props: Props) => {
     if (!token) navigate("/notfound");
     useEffect(() => {
         axios
-            .post("http://localhost:3500/api/auth/verifyToken", {
+            .post(`${process.env.REACT_APP_API_URL}/auth/verifyToken`, {
                 resetToken: token,
             })
             .then((res) => {
@@ -56,7 +56,7 @@ const ResetPassword = (props: Props) => {
         setLoading(true);
         try {
             const response = await axios.post(
-                `http://localhost:3500/api/auth/newPassword`,
+                `${process.env.REACT_APP_API_URL}/auth/newPassword`,
                 {
                     resetToken: token,
                     newPassword: newPassword.password,

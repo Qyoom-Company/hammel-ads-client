@@ -46,7 +46,7 @@ function AdminRoutes() {
     if (!token) navigate("/login");
     useEffect(() => {
         axios
-            .get("http://localhost:3500/api/users/getuser", {
+            .get(`${process.env.REACT_APP_API_URL}/users/getuser`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
@@ -103,7 +103,7 @@ function MainRoutes() {
     if (!token) navigate("/login");
     useEffect(() => {
         axios
-            .get("http://localhost:3500/api/users/getuser", {
+            .get(`${process.env.REACT_APP_API_URL}/users/getuser`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },

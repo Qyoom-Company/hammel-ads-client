@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export default async function getUserInfo(
     token: string,
@@ -8,7 +7,7 @@ export default async function getUserInfo(
 ) {
     try {
         const response = await axios.get(
-            "http://localhost:3500/api/users/getuser",
+            `${process.env.REACT_APP_API_URL}/users/getuser`,
             {
                 headers: {
                     authorization: `Bearer ${token}`,

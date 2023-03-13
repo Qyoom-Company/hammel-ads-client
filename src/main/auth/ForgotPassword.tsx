@@ -27,7 +27,7 @@ const ForgotPassword = (props: Props) => {
         setLoading(true);
         try {
             const response = await axios.post(
-                "http://localhost:3500/api/auth/reset",
+                `${process.env.REACT_APP_API_URL}/auth/reset`,
                 {
                     email: email,
                 }

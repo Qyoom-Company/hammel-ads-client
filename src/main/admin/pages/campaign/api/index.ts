@@ -1,24 +1,25 @@
 import axios from "axios";
 
-const mainRoute = "http://localhost:3500";
-
 const CampaignsAPI = {
     getAllCampaigns: function (token: string) {
-        return axios.get(`${mainRoute}/api/campaigns/`, {
+        return axios.get(`${process.env.REACT_APP_API_URL}/campaigns/`, {
             headers: {
                 authorization: `Bearer ${token}`,
             },
         });
     },
     getCampaignById: function (token: string, campaignId: string) {
-        return axios.get(`${mainRoute}/api/campaigns/${campaignId}`, {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        });
+        return axios.get(
+            `${process.env.REACT_APP_API_URL}/campaigns/${campaignId}`,
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }
+        );
     },
     createCampaign: function (data: any, token: string) {
-        return axios.post(`${mainRoute}/api/campaigns/`, data, {
+        return axios.post(`${process.env.REACT_APP_API_URL}/campaigns/`, data, {
             headers: {
                 authorization: `Bearer ${token}`,
             },
@@ -30,7 +31,7 @@ const CampaignsAPI = {
         token: string
     ) {
         return axios.patch(
-            `${mainRoute}/api/campaigns/${campaignId}`,
+            `${process.env.REACT_APP_API_URL}/campaigns/${campaignId}`,
             updateInfo,
             {
                 headers: {
@@ -42,7 +43,7 @@ const CampaignsAPI = {
 
     getUser: function (token: string, userId: string) {
         return axios.get(
-            `${mainRoute}/api/users/${userId}`,
+            `${process.env.REACT_APP_API_URL}/users/${userId}`,
 
             {
                 headers: {
@@ -54,7 +55,7 @@ const CampaignsAPI = {
 
     uploadCampaignPhoto: function (campaignPhotoData: FormData, token: string) {
         return axios.post(
-            "http://localhost:3500/api/campaigns/upload-campaign-photo",
+            `${process.env.REACT_APP_API_URL}/campaigns/upload-campaign-photo`,
             campaignPhotoData,
             {
                 headers: {

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import LoadingSpinner from "../../../../utils/LoadingSpinner";
 import NavBar from "../../shared/NavBar";
 import WalletAPI from "./api";
-import AddBalanceButton from "./components/AddBalanceButton";
 import BalanceInfoTable from "./components/BalanceInfoTable";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";

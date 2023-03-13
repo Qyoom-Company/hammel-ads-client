@@ -4,7 +4,7 @@ import authService from "./authService";
 const token = JSON.parse(localStorage.getItem("token") || "{}");
 
 export const register = createAsyncThunk(
-    "http://localhost:3500/api/auth/register",
+    `${process.env.REACT_APP_API_URL}/auth/register`,
     async (user, thunkAPI) => {
         try {
             return await authService.register(user);
@@ -21,7 +21,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-    "http://localhost:3500/api/auth/login",
+    `${process.env.REACT_APP_API_URL}/auth/login`,
     async (user, thunkAPI) => {
         try {
             return await authService.login(user);
